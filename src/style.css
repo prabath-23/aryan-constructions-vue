@@ -1,0 +1,552 @@
+/* ==========================================================================
+   Aryan Constructions — design system
+   Concept: the site reads like an active construction document set — a
+   drawing sheet, not a lifestyle brochure. Title blocks instead of "eyebrow"
+   labels, sheet codes instead of decorative numerals. Dark warm-black ground
+   with a single accent family: the logo's bronze and gold
+   anywhere (every accent sits at hue ~42–46°).
+   ========================================================================== */
+
+:root {
+  /* Ground — warm blacks, four levels so panels read without heavy borders */
+  --ink:        #080807;
+  --ink-1:      #0C0C0A;
+  --ink-2:      #121210;
+  --ink-3:      #181815;
+
+  /* Ink on ground */
+  --bone:       #EDEAE3;
+  --bone-70:    rgba(237, 234, 227, 0.70);
+  --bone-45:    rgba(237, 234, 227, 0.45);
+  --bone-28:    rgba(237, 234, 227, 0.28);
+  --grey:       #6B6B66;
+
+  /* The logo's colours, sampled from the artwork: its bronze-to-gold gradient,
+     which reaches full gold a little past halfway, plus the window colour. */
+  --gold-start: #BF7B25;
+  --gold-end:   #CEA437;
+  --gold:       #CEA437;
+  --gold-deep:  #B8892E;
+  --gold-grad:  linear-gradient(135deg, var(--gold-start), var(--gold-end) 60%);
+  --gold-wash:  rgba(206, 164, 55, 0.10);
+
+  /* Annotation mark: sheet codes, emphasis words, crosshairs, stamps. */
+  --mark:       #CEA437;
+  --mark-wash:  rgba(206, 164, 55, 0.12);
+
+  /* Structure */
+  --rule:       rgba(237, 234, 227, 0.09);
+  --rule-soft:  rgba(237, 234, 227, 0.055);
+
+  /* One family, used the way an established firm would: Libre Franklin, a
+     revival of Franklin Gothic — the sturdy American grotesque of signage,
+     newspapers and old-line companies. Bold for headlines, regular for
+     copy, tracked uppercase for labels. Deliberately NOT the trendy
+     display grotesque + monospace-labels combination (Bricolage / Space
+     Grotesk / Plex Mono) that reads as AI-generated. The three tokens are
+     kept separate so a role can be changed later without hunting. */
+  --font-head:  "Libre Franklin", "Franklin Gothic Medium", "Helvetica Neue", Arial, sans-serif;
+  --font-ui:    "Libre Franklin", "Franklin Gothic Medium", "Helvetica Neue", Arial, sans-serif;
+  --font-body:  "Libre Franklin", "Franklin Gothic Book", "Helvetica Neue", Arial, sans-serif;
+
+  /* Type scale */
+  --fs-display: clamp(3rem, 8.6vw, 8rem);
+  --fs-h2:      clamp(1.9rem, 4.6vw, 3.6rem);
+  --fs-h3:      clamp(1.15rem, 1.9vw, 1.55rem);
+  --fs-body:    clamp(0.95rem, 1.05vw, 1.0625rem);
+  --fs-label:   0.6875rem;
+
+  /* Rhythm */
+  --section:    clamp(5.5rem, 13vh, 10.5rem);
+  --gutter:     clamp(1.25rem, 5vw, 4rem);
+  --container:  1360px;
+
+  --ease:       cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-out:   cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+
+/* Lenis owns scrolling once it's running. Native smooth-scroll must be off
+   for the whole time it's active, not just mid-animation: Lenis 1.3 only
+   adds .lenis-smooth *during* its own animations, and otherwise every
+   programmatic scroll (ScrollTrigger's refresh measurements included) would
+   be browser-animated on top of Lenis. */
+html.lenis, html.lenis body { height: auto; }
+html.lenis { scroll-behavior: auto !important; }
+html.lenis.lenis-stopped { overflow: clip; }
+[data-lenis-prevent] { overscroll-behavior: contain; }
+
+body {
+  margin: 0;
+  background: var(--ink);
+  color: var(--bone);
+  font-family: var(--font-body);
+  font-size: var(--fs-body);
+  font-weight: 400;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+img { max-width: 100%; display: block; }
+a { color: inherit; text-decoration: none; }
+ul, ol { list-style: none; margin: 0; padding: 0; }
+button { font-family: inherit; cursor: pointer; color: inherit; }
+input, textarea, select, button { font-family: inherit; font-size: inherit; }
+
+h1, h2, h3, h4 {
+  font-family: var(--font-head);
+  font-weight: 600;
+  margin: 0;
+  color: var(--bone);
+  letter-spacing: -0.015em;
+  line-height: 1.04;
+}
+
+::selection { background: var(--mark); color: var(--ink); }
+
+:focus-visible {
+  outline: 1px solid var(--gold);
+  outline-offset: 3px;
+}
+
+/* --------------------------------------------------------------------------
+   Film grain + vignette. Flat black reads cheap; a little tooth reads printed.
+   -------------------------------------------------------------------------- */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 9998;
+  pointer-events: none;
+  opacity: 0.035;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* Content sits above the fixed blueprint grid */
+main, footer { position: relative; z-index: 1; }
+
+/* Custom CAD cursor replaces the native one on fine pointers — except in
+   form fields, where the I-beam is genuinely useful. */
+.has-cursor, .has-cursor * { cursor: none !important; }
+.has-cursor input, .has-cursor textarea { cursor: text !important; }
+.has-cursor select { cursor: pointer !important; }
+
+.container {
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+  width: 100%;
+}
+
+section { position: relative; }
+
+/* --------------------------------------------------------------------------
+   Scroll reveal
+   -------------------------------------------------------------------------- */
+[data-reveal] {
+  opacity: 0;
+  transform: translateY(24px);
+}
+[data-reveal].is-visible {
+  opacity: 1;
+  transform: none;
+  transition: opacity 1s var(--ease-out), transform 1s var(--ease-out);
+}
+/* Staggered children — index set by the directive */
+[data-reveal].is-visible > * { --d: 0ms; }
+.stagger > * {
+  opacity: 0;
+  transform: translateY(18px);
+}
+.stagger.is-visible > * {
+  opacity: 1;
+  transform: none;
+  transition: opacity 0.85s var(--ease-out), transform 0.85s var(--ease-out);
+}
+.stagger.is-visible > *:nth-child(1) { transition-delay: 0ms; }
+.stagger.is-visible > *:nth-child(2) { transition-delay: 90ms; }
+.stagger.is-visible > *:nth-child(3) { transition-delay: 180ms; }
+.stagger.is-visible > *:nth-child(4) { transition-delay: 270ms; }
+.stagger.is-visible > *:nth-child(5) { transition-delay: 360ms; }
+.stagger.is-visible > *:nth-child(6) { transition-delay: 450ms; }
+
+/* --------------------------------------------------------------------------
+   Image frames: frame (observed) > .rv (wipe + parallax layer) > img.
+   - The clip sits on .rv, never on the observed frame: a clip-path on the
+     observed element zeroes its intersection ratio and it never reveals.
+   - .rv is oversized so v-parallax can drift it without exposing edges.
+   - Reveal scale uses `transform`; hover zoom uses the independent `scale`
+     property, so the two compose instead of overriding each other.
+   - A red plotter line rides the wipe's leading edge.
+   -------------------------------------------------------------------------- */
+.frame-media { position: relative; overflow: hidden; }
+.frame-media > .rv {
+  position: absolute;
+  inset: -11% 0;
+  will-change: transform;
+}
+.frame-media > .rv img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scale(1.14);
+  transition: transform 1.6s var(--ease-out), scale 1.1s var(--ease-out);
+}
+/* A slight grade so bright interiors sit in the dark page without looking
+   washed out. These are real finishes: keep their colours close to true. */
+.frame-media > .rv img { filter: brightness(0.96); }
+.frame-media > .rv::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(180deg, rgba(8, 8, 7, 0) 60%, rgba(8, 8, 7, 0.22) 100%);
+}
+
+
+.clip-reveal > .rv { clip-path: inset(0 0 100% 0); }
+.clip-reveal.is-visible > .rv {
+  clip-path: inset(0 0 0 0);
+  transition: clip-path 1.25s var(--ease-out);
+}
+.clip-reveal.is-visible > .rv img { transform: scale(1); }
+.clip-reveal::after {
+  content: "";
+  position: absolute;
+  left: 0; right: 0; top: 0;
+  height: 1px;
+  background: var(--mark);
+  box-shadow: 0 0 12px var(--mark);
+  opacity: 0;
+  z-index: 2;
+  pointer-events: none;
+}
+.clip-reveal.is-visible::after { animation: plotter 1.25s var(--ease-out) forwards; }
+@keyframes plotter {
+  0% { top: 0; opacity: 1; }
+  85% { opacity: 1; }
+  100% { top: 100%; opacity: 0; }
+}
+
+/* Split-word headings (v-split) */
+.split .sw {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: top;
+  /* room for descenders so the mask doesn't clip g/p/y */
+  padding-bottom: 0.12em;
+  margin-bottom: -0.12em;
+}
+.split .swi {
+  display: inline-block;
+  transform: translateY(105%) rotate(4deg);
+  transform-origin: 0 100%;
+  transition: transform 1s var(--ease-out);
+  transition-delay: calc(var(--i, 0) * 45ms);
+}
+.split.is-in .swi { transform: none; }
+
+/* v-magnetic — independent `translate` so it never clobbers `transform`.
+   Lists the other transitions buttons/links rely on, since this rule
+   replaces their `transition` value. */
+.magnetic {
+  translate: var(--mx, 0px) var(--my, 0px);
+  transition:
+    translate 0.6s var(--ease),
+    color 0.4s var(--ease),
+    border-color 0.4s var(--ease),
+    background 0.4s var(--ease);
+}
+
+.reduced-motion [data-reveal],
+.reduced-motion .stagger > *,
+.reduced-motion .clip-reveal > .rv {
+  opacity: 1 !important;
+  transform: none !important;
+  clip-path: none !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  /* Zero delays as well as durations — otherwise staggered sequences (the
+     self-drawing hero) still assemble piece by piece, just in jumps. */
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-delay: 0s !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    transition-delay: 0s !important;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Typographic primitives
+   -------------------------------------------------------------------------- */
+
+/* --------------------------------------------------------------------------
+   Sheet mark — the section header, styled like a drawing-set title block
+   (sheet code · rule · title) instead of a decorative "01 —— Eyebrow".
+   Codes follow real AIA drawing-set numbering: A-1xx plans, A-2xx
+   elevations, A-3xx sections, A-4xx details — so Portfolio is genuinely
+   tagged A-201 (an elevations sheet) rather than an arbitrary index.
+   -------------------------------------------------------------------------- */
+.index-rule {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  margin-bottom: clamp(1.75rem, 4vw, 3rem);
+}
+.index-rule .num {
+  font-family: var(--font-ui);
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  color: var(--mark);
+  font-variant-numeric: tabular-nums;
+  border: 1px solid currentColor;
+  padding: 0.2rem 0.45rem;
+  line-height: 1;
+  /* a sheet code must never break at its hyphen */
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.index-rule .line {
+  height: 1px;
+  width: clamp(1.5rem, 5vw, 4rem);
+  background: var(--rule);
+  position: relative;
+  transform: scaleX(0);
+  transform-origin: left;
+}
+.index-rule .line::before {
+  /* A small tick, like a dimension line's terminator */
+  content: "";
+  position: absolute;
+  right: 0; top: 50%;
+  width: 1px; height: 6px;
+  background: var(--bone-28);
+  transform: translateY(-50%);
+}
+/* Draws in like a ruled line, once the marker scrolls into view. */
+.index-rule.is-visible .line {
+  transform: scaleX(1);
+  transition: transform 0.9s var(--ease-out) 0.15s;
+}
+.reduced-motion .index-rule .line { transform: scaleX(1) !important; }
+.index-rule .label {
+  font-family: var(--font-ui);
+  font-size: var(--fs-label);
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--bone-45);
+}
+
+.display {
+  font-size: var(--fs-display);
+  line-height: 0.94;
+  letter-spacing: -0.03em;
+  font-weight: 600;
+}
+/* Emphasis: the same face in a lighter italic, in gold — understated, the
+   way a print designer would do it, rather than a font-switch gimmick. */
+.display em,
+.section-title em {
+  font-style: italic;
+  font-weight: 400;
+  color: var(--mark);
+}
+
+.section-title {
+  font-size: var(--fs-h2);
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  font-weight: 600;
+  max-width: 18ch;
+}
+
+.lede {
+  font-family: var(--font-body);
+  font-size: clamp(1rem, 1.5vw, 1.25rem);
+  line-height: 1.55;
+  color: var(--bone-70);
+  max-width: 46ch;
+  font-weight: 400;
+}
+
+.body-copy {
+  font-family: var(--font-body);
+  color: var(--bone-45);
+  line-height: 1.75;
+  max-width: 56ch;
+  margin: 0;
+}
+
+.label {
+  font-family: var(--font-ui);
+  font-size: var(--fs-label);
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--bone-28);
+}
+
+.num-display {
+  font-family: var(--font-ui);
+  font-variant-numeric: tabular-nums;
+  font-weight: 500;
+}
+
+/* --------------------------------------------------------------------------
+   Placeholder marking. Off by default so the design reads as finished work;
+   Review mode lights every unwritten passage up for the client pass.
+   -------------------------------------------------------------------------- */
+.ph { transition: background 0.3s var(--ease), box-shadow 0.3s var(--ease); }
+.review-mode .ph {
+  background: var(--gold-wash);
+  box-shadow: inset 0 -1px 0 rgba(206, 164, 55, 0.55);
+  color: var(--bone-70);
+}
+.review-mode .ph::after {
+  content: "⌁";
+  font-size: 0.7em;
+  color: var(--gold);
+  vertical-align: super;
+  margin-left: 0.15em;
+}
+
+/* --------------------------------------------------------------------------
+   Links & buttons
+   -------------------------------------------------------------------------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  padding: 1.05rem 1.9rem;
+  font-family: var(--font-ui);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  border: 1px solid transparent;
+  border-radius: 1px;
+  position: relative;
+  overflow: hidden;
+  transition: color 0.4s var(--ease), border-color 0.4s var(--ease);
+}
+.btn .arrow {
+  display: inline-block;
+  transition: transform 0.45s var(--ease);
+}
+.btn:hover .arrow { transform: translateX(5px); }
+
+.btn-gold { background: var(--gold-grad); color: var(--ink); font-weight: 600; }
+.btn-gold::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--bone);
+  transform: translateY(101%);
+  transition: transform 0.5s var(--ease);
+  z-index: 0;
+}
+.btn-gold:hover::before { transform: translateY(0); }
+.btn-gold > * { position: relative; z-index: 1; }
+
+.btn-ghost { color: var(--bone); border-color: var(--rule); }
+.btn-ghost::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--bone);
+  transform: translateY(101%);
+  transition: transform 0.5s var(--ease);
+  z-index: 0;
+}
+.btn-ghost:hover { color: var(--ink); border-color: var(--bone); }
+.btn-ghost:hover::before { transform: translateY(0); }
+.btn-ghost > * { position: relative; z-index: 1; }
+
+.btn-block { width: 100%; }
+
+/* Inline text link with a rule that wipes in */
+.link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-family: var(--font-ui);
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--gold);
+  padding-bottom: 0.4rem;
+  position: relative;
+}
+.link::after {
+  content: "";
+  position: absolute;
+  left: 0; bottom: 0;
+  width: 100%; height: 1px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.5s var(--ease);
+}
+.link:hover::after { transform: scaleX(1); transform-origin: left; }
+.link .arrow { transition: transform 0.45s var(--ease); }
+.link:hover .arrow { transform: translateX(4px); }
+
+/* The logo's 2×2 window, reused as a structural bullet */
+.glyph {
+  display: inline-grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 3px;
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+}
+.glyph i { background: var(--gold-grad); display: block; }
+
+/* Hairline helpers */
+.rule-top { border-top: 1px solid var(--rule); }
+.rule-bottom { border-bottom: 1px solid var(--rule); }
+
+/* Registration/crop marks — corner brackets like a printer's crop mark or a
+   surveyor's benchmark. Two pseudo-elements cover the opposite corners;
+   applied to full-bleed panels (the hero, image frames) to keep the "this is
+   a drawing sheet" concept present even where there's no title block. */
+.crop { position: relative; }
+.crop::before,
+.crop::after {
+  content: "";
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  z-index: 3;
+  pointer-events: none;
+}
+.crop::before {
+  top: 14px; left: 14px;
+  border-top: 1px solid var(--bone-28);
+  border-left: 1px solid var(--bone-28);
+}
+.crop::after {
+  bottom: 14px; right: 14px;
+  border-bottom: 1px solid var(--bone-28);
+  border-right: 1px solid var(--bone-28);
+}
+
+/* The hero's intro waits behind the loading screen, then plays as it lifts */
+.loader-on .hero,
+.loader-on .hero *,
+.loader-on .hero *::before,
+.loader-on .hero *::after {
+  animation-play-state: paused !important;
+}
