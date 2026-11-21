@@ -158,7 +158,7 @@ The client asked for a warmer, less mechanical site. So:
   signature, a line inviting people to the office, the footer sign-off.
 - **Reviews** are real Google reviews quoted word for word, with initials,
   stars and the rating. Never paraphrase or invent one.
-- **Founder card** shows Mani's initials until a portrait is added
+- **Founder card** shows a casual photo of Mani for now (`founder.photo`; null shows his initials)
   (`founder.photo` in `content.js`). A real photo of Mani, and of the team on
   site, is the single biggest improvement still to make.
 

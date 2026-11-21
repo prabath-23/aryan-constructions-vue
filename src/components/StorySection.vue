@@ -57,7 +57,9 @@ const img = photo('selaiyur-2')
               v-if="founder.photo"
               class="portrait"
               :src="photo(founder.photo).src"
-              :alt="`${founder.name}, ${founder.role}`"
+              :srcset="photo(founder.photo).srcset"
+              sizes="88px"
+              :alt="photo(founder.photo).alt"
               width="96"
               height="96"
             >

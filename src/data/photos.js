@@ -12,6 +12,7 @@ Object.values(index).forEach((list) => list.sort((a, b) => a.w - b.w))
 
 const alts = {
   about: 'Double-height living room and kitchen seen from the staircase',
+  founder: 'Er. Manikandan M., Founder and Managing Director of Aryan Constructions & Interiors',
   'service-construction': 'Upper floors of a white corner house with a curved balcony',
   'service-interiors': 'Modular kitchen framed by a wooden partition',
 

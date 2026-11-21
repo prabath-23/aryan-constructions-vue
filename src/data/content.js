@@ -61,9 +61,9 @@ export const story = {
 
 export const founder = {
   name: 'Er. Manikandan M.',
-  // A photo key from photos.js. Until a portrait is added, the card shows
-  // his initials. A real photo of Mani is the single biggest human touch.
-  photo: null,
+  // A photo key from photos.js (null shows his initials instead). This is a
+  // casual photo for now: swap in a proper portrait when there is one.
+  photo: 'founder',
   initials: 'MM',
   signature: 'Manikandan M.',
   role: 'Founder & Managing Director',
