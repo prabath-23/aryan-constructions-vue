@@ -122,7 +122,7 @@ onUnmounted(() => {
   right: clamp(-2rem, 1vw, 3rem);
   top: 50%;
   width: min(50vw, 760px);
-  transform: translateY(-52%);
+  transform: translateY(-57%);
 }
 .art-scroll { will-change: transform; transform-origin: 50% 80%; }
 

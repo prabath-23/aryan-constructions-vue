@@ -124,9 +124,14 @@ marks).
 ## Motion
 
 ### Signature moments
-- **Hero — the drawing builds itself.** `HeroBuilding.vue` is a north
-  elevation that draws on load, stroke by stroke (grid → structure → floors →
-  dimensions → crane), then the windows flicker on. Pure CSS
+- **Hero — the drawing builds itself.** `HeroBuilding.vue` is a perspective
+  drawing modelled on the building in the client's home-page mockup: floors
+  with overhanging slabs, glass balustrades, a fin panel, a set-back top floor,
+  a tower crane and trees. The building is described in metres and projected
+  through a small camera in the component, so changing a dimension keeps the
+  perspective right. It draws on load, stroke by stroke (grid → slabs → glazing
+  → crane and trees → dimensions), then the windows flicker on. A static copy
+  is exported as `aryan-hero-building.svg` alongside the project. Pure CSS
   (`stroke-dashoffset` on `pathLength="1"` paths), so it starts at first
   paint with no JS chunk to wait for. Its layers shift at different depths
   with the pointer, and it sinks back as you scroll away.
