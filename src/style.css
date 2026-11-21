@@ -48,6 +48,9 @@
   --font-head:  "Cinzel", "Trajan Pro", Georgia, serif;
   --font-ui:    "Libre Franklin", "Franklin Gothic Medium", "Helvetica Neue", Arial, sans-serif;
   --font-body:  "Libre Franklin", "Franklin Gothic Book", "Helvetica Neue", Arial, sans-serif;
+  /* Handwriting, for the few notes a person would scribble on a drawing:
+     captions, the founder's signature, a word from the office. Use sparingly. */
+  --font-hand:  "Caveat", "Bradley Hand", "Segoe Print", cursive;
 
   /* Type scale */
   --fs-display: clamp(3rem, 8.6vw, 8rem);
@@ -132,12 +135,6 @@ body::after {
 
 /* Content sits above the fixed blueprint grid */
 main, footer { position: relative; z-index: 1; }
-
-/* Custom CAD cursor replaces the native one on fine pointers — except in
-   form fields, where the I-beam is genuinely useful. */
-.has-cursor, .has-cursor * { cursor: none !important; }
-.has-cursor input, .has-cursor textarea { cursor: text !important; }
-.has-cursor select { cursor: pointer !important; }
 
 .container {
   max-width: var(--container);
@@ -253,18 +250,6 @@ section { position: relative; }
   transition-delay: calc(var(--i, 0) * 45ms);
 }
 .split.is-in .swi { transform: none; }
-
-/* v-magnetic — independent `translate` so it never clobbers `transform`.
-   Lists the other transitions buttons/links rely on, since this rule
-   replaces their `transition` value. */
-.magnetic {
-  translate: var(--mx, 0px) var(--my, 0px);
-  transition:
-    translate 0.6s var(--ease),
-    color 0.4s var(--ease),
-    border-color 0.4s var(--ease),
-    background 0.4s var(--ease);
-}
 
 .reduced-motion [data-reveal],
 .reduced-motion .stagger > *,
@@ -439,41 +424,20 @@ section { position: relative; }
   border: 1px solid transparent;
   border-radius: 1px;
   position: relative;
-  overflow: hidden;
-  transition: color 0.4s var(--ease), border-color 0.4s var(--ease);
+  transition: color 0.25s ease, border-color 0.25s ease, background-color 0.25s ease, filter 0.25s ease;
 }
+/* Hover is deliberately quiet: a colour change and a small nudge of the arrow. */
 .btn .arrow {
   display: inline-block;
-  transition: transform 0.45s var(--ease);
+  transition: transform 0.25s ease;
 }
-.btn:hover .arrow { transform: translateX(5px); }
+.btn:hover .arrow { transform: translateX(3px); }
 
 .btn-gold { background: var(--gold-grad); color: var(--ink); font-weight: 600; }
-.btn-gold::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: var(--bone);
-  transform: translateY(101%);
-  transition: transform 0.5s var(--ease);
-  z-index: 0;
-}
-.btn-gold:hover::before { transform: translateY(0); }
-.btn-gold > * { position: relative; z-index: 1; }
+.btn-gold:hover { filter: brightness(1.08); }
 
 .btn-ghost { color: var(--bone); border-color: var(--rule); }
-.btn-ghost::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: var(--bone);
-  transform: translateY(101%);
-  transition: transform 0.5s var(--ease);
-  z-index: 0;
-}
-.btn-ghost:hover { color: var(--ink); border-color: var(--bone); }
-.btn-ghost:hover::before { transform: translateY(0); }
-.btn-ghost > * { position: relative; z-index: 1; }
+.btn-ghost:hover { border-color: var(--gold); color: var(--gold); }
 
 .btn-block { width: 100%; }
 
@@ -502,8 +466,20 @@ section { position: relative; }
   transition: transform 0.5s var(--ease);
 }
 .link:hover::after { transform: scaleX(1); transform-origin: left; }
-.link .arrow { transition: transform 0.45s var(--ease); }
-.link:hover .arrow { transform: translateX(4px); }
+.link .arrow { transition: transform 0.25s ease; }
+.link:hover .arrow { transform: translateX(3px); }
+
+/* A handwritten note, in gold, slightly off-square like a pencilled margin note */
+.hand {
+  font-family: var(--font-hand);
+  font-weight: 500;
+  font-size: 1.4rem;
+  line-height: 1.15;
+  letter-spacing: 0;
+  text-transform: none;
+  color: var(--gold);
+}
+.hand-tilt { display: inline-block; transform: rotate(-2.5deg); transform-origin: left center; }
 
 /* The logo's 2×2 window, reused as a structural bullet */
 .glyph {

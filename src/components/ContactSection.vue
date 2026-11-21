@@ -51,9 +51,9 @@ const details = [
   <section class="contact" id="contact">
     <div class="container">
       <div class="index-rule" v-reveal>
-        <span class="num" v-scramble="150">G-001</span>
+        <span class="num">G-001</span>
         <span class="line"></span>
-        <span class="label" v-scramble="300">Start Your Project</span>
+        <span class="label">Start Your Project</span>
       </div>
 
       <div class="grid">
@@ -62,6 +62,7 @@ const details = [
           <p class="lede" v-reveal>
             Send us the outline and we'll arrange a site visit and an itemised quote.
           </p>
+          <p class="hand hand-tilt visit" v-reveal>Or drop by our office in Vandalur. Just give us a call first!</p>
 
           <ul class="details" v-reveal.stagger>
             <li v-for="d in details" :key="d.label">
@@ -123,8 +124,8 @@ const details = [
 
           <p class="note">Opens WhatsApp with your details filled in.</p>
 
-          <button v-magnetic="0.15" type="submit" class="btn btn-gold btn-block">
-            <span v-scramble.hover>Send on WhatsApp</span><span class="arrow">→</span>
+          <button type="submit" class="btn btn-gold btn-block">
+            <span>Send on WhatsApp</span><span class="arrow">→</span>
           </button>
           <p class="status" role="status" aria-live="polite">{{ status }}</p>
         </form>
@@ -135,6 +136,8 @@ const details = [
 </template>
 
 <style scoped>
+.visit { margin: 1.25rem 0 0; font-size: 1.5rem; }
+
 .contact { padding: var(--section) 0; }
 
 .grid {

@@ -14,10 +14,8 @@ import TestimonialsSection from './components/TestimonialsSection.vue'
 import ContactSection from './components/ContactSection.vue'
 import TheFooter from './components/TheFooter.vue'
 import Lightbox from './components/Lightbox.vue'
-import CustomCursor from './components/CustomCursor.vue'
 import WhatsAppButton from './components/WhatsAppButton.vue'
 import BlueprintGrid from './components/BlueprintGrid.vue'
-import StatusBar from './components/StatusBar.vue'
 import { marqueeItems } from './data/content'
 import { runMotion } from './motion'
 import { finishLoader } from './motion/loader'
@@ -48,9 +46,7 @@ onMounted(() => {
       <ContactSection />
     </main>
     <TheFooter />
-    <StatusBar />
     <WhatsAppButton />
     <Lightbox />
-    <CustomCursor />
   </div>
 </template>

@@ -60,14 +60,14 @@ onUnmounted(() => {
 
     <div ref="body" class="container hero-body">
       <div class="index-rule">
-        <span class="num" v-scramble.load="150">A-000</span>
+        <span class="num">A-000</span>
         <span class="line"></span>
-        <span class="label" v-scramble.load="300">Turnkey Construction · Design &amp; Build</span>
+        <span class="label">Turnkey Construction · Design &amp; Build</span>
       </div>
 
       <h1 class="display headline">
         <span class="mask"><span class="in">Building Trust.</span></span>
-        <span class="mask"><span class="in">Creating <em v-scramble.load="820">Landmarks.</em></span></span>
+        <span class="mask"><span class="in">Creating <em>Landmarks.</em></span></span>
       </h1>
 
       <p class="lede fade-1">
@@ -77,8 +77,8 @@ onUnmounted(() => {
       </p>
 
       <div class="actions fade-2">
-        <a v-magnetic href="#contact" class="btn btn-gold"><span v-scramble.hover>Get a Quote</span><span class="arrow">→</span></a>
-        <a v-magnetic href="#portfolio" class="btn btn-ghost"><span v-scramble.hover>View Our Projects</span><span class="arrow">→</span></a>
+        <a href="#contact" class="btn btn-gold"><span>Get a Quote</span><span class="arrow">→</span></a>
+        <a href="#portfolio" class="btn btn-ghost"><span>View Our Projects</span><span class="arrow">→</span></a>
       </div>
 
       <ul class="stats fade-3">
@@ -217,8 +217,6 @@ onUnmounted(() => {
 }
 .stats li:first-child { border-left: 0; padding-left: 0; }
 .stats .line-icon { color: var(--gold); width: 1.35rem; height: 1.35rem; }
-/* Clear the fixed CAD status bar on desktop */
-@media (min-width: 1081px) { .strip { margin-bottom: 30px; } }
 
 /* Bottom strip */
 .strip {

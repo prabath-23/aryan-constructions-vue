@@ -140,21 +140,27 @@ marks).
   design, stacks the floors with a working crane, then turns the lights on and
   slams a HANDED OVER stamp. It runs backwards when you scroll up; the stage
   pills jump to each stage.
-- **CAD cursor** (`CustomCursor.vue`): crosshair with live X/Y coordinates, a
-  trailing ring that tightens over links and opens into a labelled disc over
-  anything with `data-cursor="Label"`. Fine pointers only; the native I-beam
-  stays in form fields.
 
 ### Supporting effects
-Smooth scroll (Lenis) · split-word headline reveals (`v-split`) · sheet codes
-and labels that decode from random characters (`v-scramble`) · odometer stats
-· a capabilities marquee that speeds up, skews and reverses with scroll
-velocity · image wipe-reveals with a gold "plotter" line and inner parallax
-(`v-parallax`) · blueprint scan sweep on portfolio hover · magnetic buttons
-(`v-magnetic`) · hand-drawn circles around the Why numbers · auto-advancing
-testimonials that assemble word by word · a RECEIVED stamp on form submit · a
-footer wordmark that rises letter by letter · a fixed drafting grid drifting
-behind the page · a CAD status bar (current sheet, scale, % through the set).
+Smooth scroll (Lenis) · split-word headline reveals (`v-split`) · a
+capabilities marquee that responds to scroll speed · image wipe-reveals with a
+gold "plotter" line and inner parallax (`v-parallax`) · hand-drawn circles
+around the core-value numbers · a RECEIVED stamp on form submit · a footer
+wordmark that rises letter by letter · a faint drafting grid behind the page.
+
+### Human touch (Nov 2026)
+The client asked for a warmer, less mechanical site. So:
+- **Removed:** the magnetic pull on buttons, text that scrambled through random
+  characters, 3D tilt on photos, the coordinate cursor and the CAD status bar.
+  Button hovers are now a quiet colour change and a 3px arrow nudge.
+- **Handwriting** (`.hand`, Caveat) is used sparingly, like notes pencilled on a
+  drawing: photo captions, "Built for Mrs. Selvi" on each project, the founder's
+  signature, a line inviting people to the office, the footer sign-off.
+- **Reviews** are real Google reviews quoted word for word, with initials,
+  stars and the rating. Never paraphrase or invent one.
+- **Founder card** shows Mani's initials until a portrait is added
+  (`founder.photo` in `content.js`). A real photo of Mani, and of the team on
+  site, is the single biggest improvement still to make.
 
 ### How it's wired
 - `src/motion/index.js` — the registry. Components call
@@ -164,7 +170,7 @@ behind the page · a CAD status bar (current sheet, scale, % through the set).
   correctly. Call `refreshMotion()` after anything changes page height above a
   pinned section (the portfolio filter already does).
 - `src/motion/ticker.js` — one shared rAF loop (scroll position + velocity)
-  for the cursor, parallax, marquee and grid.
+  for parallax, the marquee and the grid.
 - **Every animated element's default CSS is its finished state.** If
   JavaScript fails or the visitor prefers reduced motion, the page is complete
   — the build sequence shows the finished, handed-over building; nothing is
@@ -186,8 +192,8 @@ behind the page · a CAD status bar (current sheet, scale, % through the set).
   zeroes the intersection ratio and the element never reveals. Frames use
   frame (observed) → `.rv` (clipped) → `img`.
 
-Older directives: `v-reveal` (fade + rise), `v-reveal.stagger`,
-`v-reveal.clip`, and `v-tilt` (pointer tilt on image frames). The header nav
+Older directives: `v-reveal` (fade + rise), `v-reveal.stagger` and
+`v-reveal.clip`. The header nav
 has a single indicator that slides between links as the active section
 changes.
 
@@ -228,8 +234,7 @@ project in `src/data/content.js`.
   helper, environment flags, lazy GSAP loader.
 - `src/composables/` — `useLightbox` (shared modal state), `useScrollSpy`
   (header active-link + progress), `useReviewMode`.
-- `src/directives/` — `v-reveal`, `v-split`, `v-scramble`, `v-parallax`,
-  `v-magnetic`, `v-tilt`.
+- `src/directives/` — `v-reveal`, `v-split`, `v-parallax`.
 - `src/assets/` — placeholder SVG imagery and the logo mark. Swap these for
   real photography/logo files (same filenames, or update the references in
   `content.js` / components).

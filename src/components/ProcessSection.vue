@@ -90,9 +90,9 @@ onMounted(() => {
     <div ref="pin" class="pin">
       <div class="container layout">
         <div class="index-rule rule-area" v-reveal>
-          <span class="num" v-scramble="150">A-301</span>
+          <span class="num">A-301</span>
           <span class="line"></span>
-          <span class="label" v-scramble="300">How We Work</span>
+          <span class="label">How We Work</span>
         </div>
         <h2 class="section-title title-area" v-split>From first call <em>to handover.</em></h2>
 

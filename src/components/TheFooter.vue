@@ -20,7 +20,7 @@ const socials = [
       <div class="top">
         <div class="cta-block">
           <p class="label">Ready to start?</p>
-          <a v-magnetic="0.2" href="#contact" class="big-link">
+          <a href="#contact" class="big-link">
             <span>Book a site visit</span><span class="arrow">→</span>
           </a>
         </div>
@@ -59,7 +59,7 @@ const socials = [
       </div>
 
       <div class="bottom">
-        <p>© {{ year }} {{ siteInfo.name }}.</p>
+        <p>© {{ year }} {{ siteInfo.name }}. <span class="hand made">Building homes in Chennai since 2019</span></p>
 
         <button class="review" :class="{ on: isOn }" :aria-pressed="isOn" @click="toggle">
           <span class="dot" aria-hidden="true"></span>
@@ -71,6 +71,8 @@ const socials = [
 </template>
 
 <style scoped>
+.made { margin-left: 0.75rem; font-size: 1.15rem; color: var(--bone-45); }
+
 .footer {
   border-top: 1px solid var(--rule);
   background: var(--ink-1);
@@ -145,11 +147,6 @@ const socials = [
   translate: 0 -0.1em;
   color: var(--gold);
 }
-/* Clear the fixed CAD status bar on desktop */
-@media (min-width: 1081px) {
-  .footer { padding-bottom: 30px; }
-}
-
 .bottom {
   display: flex;
   align-items: center;

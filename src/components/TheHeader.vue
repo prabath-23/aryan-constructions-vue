@@ -74,7 +74,7 @@ onUnmounted(() => {
                 :aria-current="activeId === link.href.slice(1) ? 'true' : undefined"
               >
                 <span class="i">{{ String(i + 1).padStart(2, '0') }}</span>
-                <span class="t" v-scramble.hover>{{ link.label }}</span>
+                <span class="t">{{ link.label }}</span>
               </a>
             </li>
           </ul>
@@ -82,7 +82,7 @@ onUnmounted(() => {
         </div>
       </nav>
 
-      <a v-magnetic="0.25" href="#contact" class="btn btn-gold cta"><span v-scramble.hover>Get a Quote</span><span class="arrow">→</span></a>
+      <a href="#contact" class="btn btn-gold cta"><span>Get a Quote</span><span class="arrow">→</span></a>
 
       <button
         class="burger"

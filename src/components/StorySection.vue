@@ -11,9 +11,9 @@ const img = photo('selaiyur-2')
     <div class="container grid">
       <div class="left">
         <div class="index-rule" v-reveal>
-          <span class="num" v-scramble="150">A-002</span>
+          <span class="num">A-002</span>
           <span class="line"></span>
-          <span class="label" v-scramble="300">About Us</span>
+          <span class="label">About Us</span>
         </div>
         <h2 class="section-title" v-split>Our Story. <em>Our Vision.</em></h2>
 
@@ -52,13 +52,30 @@ const img = photo('selaiyur-2')
         </div>
 
         <article class="founder" v-reveal>
-          <p class="label">Our Founder</p>
-          <h3 class="name">{{ founder.name }}</h3>
-          <p class="role">{{ founder.role }}</p>
+          <div class="founder-head">
+            <img
+              v-if="founder.photo"
+              class="portrait"
+              :src="photo(founder.photo).src"
+              :alt="`${founder.name}, ${founder.role}`"
+              width="96"
+              height="96"
+            >
+            <span v-else class="portrait monogram" aria-hidden="true">
+              {{ founder.initials }}
+              <span class="ph">Add a photo of Mani</span>
+            </span>
+            <div>
+              <p class="label">Our Founder</p>
+              <h3 class="name">{{ founder.name }}</h3>
+              <p class="role">{{ founder.role }}</p>
+            </div>
+          </div>
           <ul class="creds">
             <li v-for="c in founder.credentials" :key="c">{{ c }}</li>
           </ul>
           <p v-for="(para, i) in founder.bio" :key="i" class="body-copy">{{ para }}</p>
+          <p class="sign"><span class="hand">{{ founder.signature }}</span><span class="sign-role">Founder, Aryan</span></p>
         </article>
       </div>
     </div>
@@ -136,10 +153,45 @@ const img = photo('selaiyur-2')
   border-radius: 10px;
   background: linear-gradient(160deg, var(--gold-wash), transparent 55%);
 }
-.founder .label { color: var(--bone-45); margin: 0 0 0.75rem; }
-.founder .name { font-family: var(--font-head); font-size: clamp(1.6rem, 3vw, 2.35rem); margin-bottom: 0.5rem; }
+.founder-head { display: flex; align-items: center; gap: 1.25rem; margin-bottom: 1.25rem; }
+.portrait {
+  position: relative;
+  flex-shrink: 0;
+  width: 5.5rem;
+  height: 5.5rem;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1px solid rgba(206, 164, 55, 0.55);
+}
+.monogram {
+  display: grid;
+  place-items: center;
+  font-family: var(--font-head);
+  font-size: 1.5rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  color: var(--gold);
+  background: var(--gold-wash);
+}
+.monogram .ph { display: none; }
+.review-mode .monogram .ph {
+  display: block;
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  translate: -50% 0.4rem;
+  white-space: nowrap;
+  font-family: var(--font-ui);
+  font-size: 0.625rem;
+  letter-spacing: 0.04em;
+}
+.founder .label { color: var(--bone-45); margin: 0 0 0.4rem; }
+.sign { display: flex; align-items: baseline; gap: 0.9rem; margin: 1.5rem 0 0; }
+.sign .hand { font-size: 2.1rem; font-weight: 600; transform: rotate(-4deg); display: inline-block; }
+.sign-role { font-size: 0.6875rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--bone-28); }
+.founder .name { font-family: var(--font-head); font-size: clamp(1.4rem, 2.6vw, 2rem); margin-bottom: 0.35rem; }
 .role {
-  margin: 0 0 1.25rem;
+  margin: 0;
   font-family: var(--font-ui);
   font-size: 0.6875rem;
   font-weight: 600;
@@ -159,5 +211,12 @@ const img = photo('selaiyur-2')
 
 @media (max-width: 999px) {
   .grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 560px) {
+  .founder-head { gap: 1rem; }
+  .portrait { width: 3.75rem; height: 3.75rem; }
+  .monogram { font-size: 1.05rem; }
+  .founder .name { font-size: 1.3rem; }
+  .role { letter-spacing: 0.14em; }
 }
 </style>

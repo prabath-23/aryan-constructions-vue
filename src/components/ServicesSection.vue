@@ -13,9 +13,9 @@ const toggle = (id) => (openId.value = openId.value === id ? null : id)
   <section class="services" id="services">
     <div class="container">
       <div class="index-rule" v-reveal>
-        <span class="num" v-scramble="150">A-101</span>
+        <span class="num">A-101</span>
         <span class="line"></span>
-        <span class="label" v-scramble="300">What We Do</span>
+        <span class="label">What We Do</span>
       </div>
       <h2 class="section-title head" v-split>Building Spaces. <em>Delivering Excellence.</em></h2>
 

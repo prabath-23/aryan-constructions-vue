@@ -9,6 +9,7 @@ import { photo } from '../data/photos'
 const categoryLabels = { home: 'Homes', interiors: 'Interiors', design: '3D Designs' }
 const activeFilter = ref('all')
 const cover = (project) => photo(project.cover || project.images[0])
+const forLabel = (project) => ({ home: 'Built for', interiors: 'Interiors for', design: 'Designed for' })[project.category]
 const filters = computed(() => [
   { value: 'all', label: 'All', count: projects.length },
   ...Object.entries(categoryLabels).map(([value, label]) => ({
@@ -35,9 +36,9 @@ const onLayoutChange = () => refreshMotion()
       <div class="head">
         <div>
           <div class="index-rule" v-reveal>
-            <span class="num" v-scramble="150">A-201</span>
+            <span class="num">A-201</span>
             <span class="line"></span>
-            <span class="label" v-scramble="300">Our Portfolio</span>
+            <span class="label">Our Portfolio</span>
           </div>
           <h2 class="section-title" v-split>Experience Built Through <em>60+ Projects.</em></h2>
           <p class="body-copy intro" v-reveal>{{ portfolioIntro.paragraph }}</p>
@@ -55,7 +56,7 @@ const onLayoutChange = () => refreshMotion()
             :class="['filter', { active: activeFilter === f.value }]"
             @click="activeFilter = f.value"
           >
-            <span v-scramble.hover>{{ f.label }}</span><sup>{{ f.count }}</sup>
+            <span>{{ f.label }}</span><sup>{{ f.count }}</sup>
           </button>
         </div>
       </div>
@@ -74,7 +75,7 @@ const onLayoutChange = () => refreshMotion()
           v-reveal
         >
           <button class="trigger" :aria-label="`Open photos of ${project.title}, ${project.client}`" @click="open(project)">
-            <span class="frame frame-media" v-reveal.clip v-tilt data-cursor="View">
+            <span class="frame frame-media" v-reveal.clip>
               <span class="rv" v-parallax="0.1">
                 <img
                   :src="cover(project).src"
@@ -94,7 +95,7 @@ const onLayoutChange = () => refreshMotion()
                 <span class="idx num-display">{{ String(i + 1).padStart(2, '0') }}</span>
                 <span class="text">
                   <strong>{{ project.title }}</strong>
-                  <em>{{ project.client }}</em>
+                  <em class="hand">{{ forLabel(project) }} {{ project.client }}</em>
                 </span>
               </span>
               <span :class="['cat', project.category]">{{ categoryLabels[project.category] }} · {{ project.images.length }}</span>
@@ -230,7 +231,6 @@ const onLayoutChange = () => refreshMotion()
 
 /* The arrow badge is for touch/keyboard; with the custom cursor the cursor
    itself says "View". */
-.has-cursor .view { display: none; }
 
 .view {
   position: absolute;
@@ -267,7 +267,7 @@ const onLayoutChange = () => refreshMotion()
   font-size: 1.15rem;
   letter-spacing: -0.01em;
 }
-.text em { font-style: normal; font-size: 0.75rem; color: var(--bone-28); letter-spacing: 0.04em; }
+.text em { font-style: normal; font-size: 1.15rem; color: var(--gold); opacity: 0.9; }
 
 .cat {
   font-size: 0.5625rem;

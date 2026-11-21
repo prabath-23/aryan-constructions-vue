@@ -11,9 +11,9 @@ const img = photo('mudichur-1')
     <div class="container grid">
       <div class="head">
         <div class="index-rule" v-reveal>
-          <span class="num" v-scramble="150">A-401</span>
+          <span class="num">A-401</span>
           <span class="line"></span>
-          <span class="label" v-scramble="300">Why Aryan</span>
+          <span class="label">Why Aryan</span>
         </div>
         <h2 class="section-title" v-split>Why Choose <em>Aryan?</em></h2>
         <p class="lede" v-reveal>Built on Trust. Driven by Quality.</p>

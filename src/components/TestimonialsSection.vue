@@ -1,204 +1,127 @@
 <script setup>
-import { computed, onMounted, onUnmounted, ref } from 'vue'
-import { siteInfo, testimonials } from '../data/content'
-import { reducedMotion } from '../motion/env'
+import { featuredQuote, reviewSummary, siteInfo, testimonials } from '../data/content'
 
-const i = ref(0)
-const dir = ref(1)
-const hovering = ref(false)
-const inView = ref(false)
-const section = ref(null)
-let io = null
-
-const current = computed(() => testimonials[i.value])
-const words = computed(() => current.value.quote.split(' '))
-
-// Autoplay is driven by the progress bar's own CSS animation: when it ends,
-// advance. Pausing the bar (hover, focus, off-screen) therefore pauses the
-// carousel with no separate timer to keep in sync. Off under reduced motion.
-const autoplay = !reducedMotion
-const running = computed(() => autoplay && inView.value && !hovering.value)
-
-function go(step) {
-  dir.value = step
-  i.value = (i.value + step + testimonials.length) % testimonials.length
-}
-
-onMounted(() => {
-  io = new IntersectionObserver(([e]) => (inView.value = e.isIntersecting), { threshold: 0.35 })
-  io.observe(section.value)
-})
-onUnmounted(() => io?.disconnect())
+const initials = (name) => name.split(' ').map((w) => w[0]).join('').slice(0, 2).toUpperCase()
 </script>
 
 <template>
-  <section ref="section" class="testimonials" id="testimonials">
+  <section class="testimonials" id="testimonials">
     <div class="container">
       <div class="index-rule" v-reveal>
-        <span class="num" v-scramble="150">A-501</span>
+        <span class="num">A-501</span>
         <span class="line"></span>
-        <span class="label" v-scramble="300">Client Testimonials</span>
+        <span class="label">Client Testimonials</span>
       </div>
-      <h2 class="section-title title" v-split>What Our <em>Clients Say.</em></h2>
 
-      <!-- Pause only while the reader is over (or tabbed into) the quote
-           itself: the section spans the full width, so pausing on section
-           hover would stop autoplay for anyone whose mouse rests on the page. -->
-      <div
-        class="quote-wrap"
-        v-reveal
-        @pointerenter="hovering = true"
-        @pointerleave="hovering = false"
-        @focusin="hovering = true"
-        @focusout="hovering = false"
-      >
-        <span :key="'mark' + i" class="mark" aria-hidden="true">“</span>
+      <div class="head">
+        <h2 class="section-title" v-split>What Our <em>Clients Say.</em></h2>
+        <a :href="siteInfo.mapsHref" target="_blank" rel="noopener" class="rating" v-reveal>
+          <span class="stars" aria-hidden="true">★★★★★</span>
+          <span><strong>{{ reviewSummary.rating }}</strong> on Google · {{ reviewSummary.count }} reviews</span>
+        </a>
+      </div>
 
-        <div aria-live="polite">
-          <Transition :name="dir > 0 ? 'q-next' : 'q-prev'" mode="out-in" :duration="{ enter: 1100, leave: 380 }">
-            <blockquote :key="i" class="quote">
-              <p>
-                <template v-for="(w, wi) in words" :key="wi">
-                  <span class="qw"><span class="qwi" :style="{ '--i': wi }">{{ w }}</span></span>{{ ' ' }}
-                </template>
-              </p>
-              <cite>{{ current.author }}</cite>
-            </blockquote>
-          </Transition>
-        </div>
+      <figure class="featured" v-reveal>
+        <blockquote>“{{ featuredQuote.quote }}”</blockquote>
+        <figcaption class="hand hand-tilt">{{ featuredQuote.author }}, about their new home</figcaption>
+      </figure>
 
-        <div class="controls">
-          <span class="counter num-display">
-            {{ String(i + 1).padStart(2, '0') }}<span class="sep">/</span>{{ String(testimonials.length).padStart(2, '0') }}
-          </span>
-          <span class="progress" aria-hidden="true">
-            <span
-              v-if="autoplay"
-              :key="i"
-              class="fill"
-              :style="{ animationPlayState: running ? 'running' : 'paused' }"
-              @animationend="go(1)"
-            ></span>
-          </span>
-          <div class="btns">
-            <button v-magnetic="0.25" aria-label="Previous testimonial" @click="go(-1)">←</button>
-            <button v-magnetic="0.25" aria-label="Next testimonial" @click="go(1)">→</button>
+      <ul class="cards" v-reveal.stagger>
+        <li v-for="t in testimonials" :key="t.author" class="card">
+          <span class="stars" aria-label="5 out of 5 stars">★★★★★</span>
+          <p class="quote">“{{ t.quote }}”</p>
+          <div class="who">
+            <span class="avatar" aria-hidden="true">{{ initials(t.author) }}</span>
+            <span>
+              <strong>{{ t.author }}</strong>
+              <span class="meta">{{ t.meta }}</span>
+            </span>
           </div>
-        </div>
-      </div>
+        </li>
+      </ul>
 
       <a :href="siteInfo.mapsHref" target="_blank" rel="noopener" class="link all" v-reveal>
-        <span>Rated 5.0 on Google. Read all the reviews</span><span class="arrow">→</span>
+        <span>Read all the reviews on Google</span><span class="arrow">→</span>
       </a>
     </div>
   </section>
 </template>
 
 <style scoped>
-.all { margin-top: 2.5rem; }
-.title { margin-bottom: clamp(3rem, 6vw, 4.5rem); }
 .testimonials {
   padding: var(--section) 0;
   border-top: 1px solid var(--rule);
   background: var(--ink-1);
 }
 
-.quote-wrap { position: relative; max-width: 64rem; }
-
-.mark {
-  position: absolute;
-  top: -3rem;
-  left: -1.25rem;
-  font-family: var(--font-head);
-  font-size: 12rem;
-  line-height: 1;
-  color: var(--mark);
-  opacity: 0.18;
-  pointer-events: none;
-  user-select: none;
-  animation: markIn 1s var(--ease-out);
+.head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1.5rem 3rem;
+  flex-wrap: wrap;
 }
-@keyframes markIn {
-  from { opacity: 0; transform: translateY(20px) rotate(-12deg) scale(0.8); }
-  to { opacity: 0.18; transform: none; }
-}
-
-.quote { margin: 0; min-height: 11rem; }
-.quote p {
-  font-family: var(--font-head);
-  font-weight: 400;
-  font-size: clamp(1.3rem, 2.7vw, 2.15rem);
-  line-height: 1.35;
-  letter-spacing: 0.01em;
-  color: var(--bone);
-  margin: 0 0 2rem;
-}
-.qw { display: inline-block; overflow: hidden; vertical-align: top; padding-bottom: 0.1em; margin-bottom: -0.1em; }
-.qwi { display: inline-block; }
-.quote cite {
-  font-style: normal;
-  font-family: var(--font-ui);
-  font-size: 0.6875rem;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  color: var(--gold);
-}
-
-/* Entering: words rise in sequence, in the direction of travel */
-.q-next-enter-active .qwi,
-.q-prev-enter-active .qwi {
-  animation: wordIn 0.75s var(--ease-out) both;
-  animation-delay: calc(var(--i) * 22ms);
-}
-.q-prev-enter-active .qwi { animation-name: wordInPrev; }
-@keyframes wordIn { from { transform: translateY(110%) rotate(3deg); } to { transform: none; } }
-@keyframes wordInPrev { from { transform: translateY(-110%) rotate(-3deg); } to { transform: none; } }
-.q-next-enter-active cite, .q-prev-enter-active cite { animation: fadeUp 0.6s var(--ease-out) 0.4s both; }
-@keyframes fadeUp { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
-
-/* Leaving: slide out opposite to the direction of travel */
-.q-next-leave-active, .q-prev-leave-active { transition: opacity 0.35s var(--ease), transform 0.38s var(--ease); }
-.q-next-leave-to { opacity: 0; transform: translateX(-40px); }
-.q-prev-leave-to { opacity: 0; transform: translateX(40px); }
-
-.controls {
+.rating {
   display: flex;
   align-items: center;
-  gap: 1.5rem;
-  margin-top: clamp(2.5rem, 5vw, 4rem);
-  padding-top: 1.5rem;
-  border-top: 1px solid var(--rule);
+  gap: 0.75rem;
+  font-size: 0.875rem;
+  color: var(--bone-70);
 }
-.counter { font-size: 0.875rem; color: var(--bone-45); letter-spacing: 0.1em; }
-.counter .sep { margin: 0 0.4rem; opacity: 0.4; }
+.rating strong { color: var(--bone); }
+.stars { color: var(--gold); letter-spacing: 0.15em; font-size: 0.875rem; }
 
-.progress { flex: 1; height: 1px; background: var(--rule); overflow: hidden; }
-.fill {
-  display: block;
-  height: 100%;
-  background: var(--gold-grad);
-  transform-origin: left;
-  animation: progress 7s linear forwards;
+.featured {
+  margin: clamp(2.5rem, 6vw, 4.5rem) 0;
+  max-width: 46rem;
 }
-@keyframes progress { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+.featured blockquote {
+  margin: 0 0 1rem;
+  font-family: var(--font-body);
+  font-style: italic;
+  font-weight: 400;
+  font-size: clamp(1.5rem, 3.2vw, 2.4rem);
+  line-height: 1.3;
+  color: var(--bone);
+}
+.featured figcaption { font-size: 1.5rem; }
 
-.btns { display: flex; gap: 0.6rem; }
-.btns button {
-  width: 3rem; height: 3rem;
-  background: none;
+.cards {
+  display: grid;
+  grid-template-columns: 1.25fr 1fr 1fr;
+  gap: 1rem;
+  align-items: start;
+}
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  padding: clamp(1.5rem, 2.5vw, 2rem);
   border: 1px solid var(--rule);
+  border-radius: 10px;
+  background: var(--ink);
+}
+.quote { margin: 0; font-size: 0.9375rem; line-height: 1.7; color: var(--bone-70); }
+.who { display: flex; align-items: center; gap: 0.85rem; }
+.avatar {
+  display: grid;
+  place-items: center;
+  width: 2.6rem;
+  height: 2.6rem;
   border-radius: 50%;
-  color: var(--bone-45);
-  font-size: 1rem;
+  background: var(--gold-wash);
+  border: 1px solid rgba(206, 164, 55, 0.4);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--gold);
 }
-.btns button:hover {
-  color: var(--ink);
-  background: var(--gold-grad);
-  border-color: transparent;
-}
+.who strong { display: block; font-size: 0.9375rem; font-weight: 600; color: var(--bone); }
+.meta { font-size: 0.75rem; color: var(--bone-45); }
 
-@media (max-width: 620px) {
-  .mark { font-size: 7rem; top: -1.75rem; left: -0.25rem; }
-  .quote { min-height: 14rem; }
+.all { margin-top: 2.5rem; }
+
+@media (max-width: 960px) {
+  .cards { grid-template-columns: 1fr; }
 }
 </style>

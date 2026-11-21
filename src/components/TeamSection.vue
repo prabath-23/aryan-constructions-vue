@@ -9,9 +9,9 @@ import { team } from '../data/content'
       <div class="grid">
         <div class="copy">
           <div class="index-rule" v-reveal>
-            <span class="num" v-scramble="150">A-003</span>
+            <span class="num">A-003</span>
             <span class="line"></span>
-            <span class="label" v-scramble="300">Our Team</span>
+            <span class="label">Our Team</span>
           </div>
           <h2 class="section-title" v-split>A Team That <em>Turns Ideas Into Reality.</em></h2>
           <div class="prose" v-reveal.stagger>

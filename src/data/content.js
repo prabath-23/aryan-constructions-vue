@@ -61,6 +61,11 @@ export const story = {
 
 export const founder = {
   name: 'Er. Manikandan M.',
+  // A photo key from photos.js. Until a portrait is added, the card shows
+  // his initials. A real photo of Mani is the single biggest human touch.
+  photo: null,
+  initials: 'MM',
+  signature: 'Manikandan M.',
   role: 'Founder & Managing Director',
   credentials: ['B.E. Civil Engineering', 'CMDA-Registered Construction Engineer', '12+ Years Experience'],
   bio: [
@@ -222,27 +227,30 @@ export const coreValues = [
   { icon: 'clock', title: 'Commitment', description: 'Maintaining quality workmanship and timely project delivery.' },
 ]
 
-// Short excerpts from real Google reviews (full text on the listing, linked
-// from the section). Replace freely, but only ever with real reviews.
+// Real Google reviews, quoted word for word from the listing (13 reviews,
+// 5.0). Only ever replace with real reviews. Do not use the review about
+// "Arani Construction" (Vancouver): it is about a different company.
+export const reviewSummary = { rating: '5.0', count: 13 }
+export const featuredQuote = {
+  quote: 'The house has come out exactly as we expected.',
+  author: 'Jaya Suriya',
+}
 export const testimonials = [
-  { quote: 'Mr. Manikandan has been very supportive all through the construction of our Independent Villa.', author: 'Krishna Balan, Google review' },
-  { quote: 'A trust worth builder who helped to update and make my Home beautiful.', author: 'vicky R, Google review' },
-  { quote: 'We are very happy with the final outcome.', author: 'Jaya Suriya, Google review' },
-]
-
-// Drawing-sheet index for the status bar: codes match each section's
-// title block (AIA numbering: A-1xx plans, A-2xx elevations, A-3xx sections…).
-export const sheets = [
-  { id: 'hero', code: 'A-000', title: 'Cover Sheet' },
-  { id: 'about', code: 'A-001', title: 'Who We Are' },
-  { id: 'story', code: 'A-002', title: 'Our Story' },
-  { id: 'team', code: 'A-003', title: 'Our Team' },
-  { id: 'portfolio', code: 'A-201', title: 'Our Projects' },
-  { id: 'services', code: 'A-101', title: 'Our Services' },
-  { id: 'process', code: 'A-301', title: 'How We Work' },
-  { id: 'why', code: 'A-401', title: 'Why Aryan' },
-  { id: 'testimonials', code: 'A-501', title: 'Client Reviews' },
-  { id: 'contact', code: 'G-001', title: 'Start Your Project' },
+  {
+    author: 'Krishna Balan',
+    meta: 'Local Guide · Independent villa',
+    quote: 'Mr. Manikandan has been very supportive all through the construction of our Independent Villa. We made many changes in the design during the development and he proactively supported without any hesitation. The interior design is also done by them with good quality.',
+  },
+  {
+    author: 'Jaya Suriya',
+    meta: 'Google review · New house',
+    quote: 'They maintained clear communication at every stage and made the entire process smooth and stress-free for us. We are very happy with the final outcome.',
+  },
+  {
+    author: 'vicky R',
+    meta: 'Google review · Home upgrade',
+    quote: 'A trust worth builder who helped to update and make my Home beautiful.',
+  },
 ]
 
 export const marqueeItems = ['Turnkey Construction', 'Independent Houses', 'Villas', 'Apartments', 'Commercial Buildings', 'Industrial Sheds', 'Interiors', 'Modular Kitchens', 'Renovation', '3D Elevations']
