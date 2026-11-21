@@ -64,14 +64,17 @@ toggle in the footer highlights them all at once in gold for a client pass.
 It's off by default (so the site presents as finished work) and the preference
 is remembered per browser.
 
-Contact details are real now (from the Google listing). The one figure still
-unconfirmed is "5+ years", flagged in review mode.
+Contact details are real (from the Google listing).
 
-**Copy style.** Aryan Constructions & Interiors is a young Chennai firm (about
-five years old), so the copy is short and plain: no inflated claims, Indian
-conventions, and only things the photos, Google reviews or the company's own
-site board back up. Visible text uses no em or en dashes; use a comma, colon,
-full stop or "to" instead.
+**Copy and layout.** The copy and section order come from the client's content
+document (Nov 2026): established 2019, 60+ projects, founder Er. Manikandan M.
+(B.E. Civil, CMDA-registered, 12+ years), six services, team structure, vision,
+mission and five core values. The document's mockup images set each section's
+layout and headline. All of it lives in `src/data/content.js`. Visible text uses
+no em or en dashes; use a comma, colon, full stop or "to" instead.
+
+Section order: Hero, Who We Are, Our Story (vision, mission, founder), Team,
+Portfolio, Services, Process, Why Aryan (core values), Reviews, Contact.
 
 ## Design system
 
@@ -95,7 +98,9 @@ converged on. Concretely:
   hero — corner brackets like a printer's crop mark or a surveyor's
   benchmark.
 
-**Type:** a single family, Libre Franklin — a revival of Morris Fuller
+**Type:** headlines and the wordmark are **Cinzel**, the client's brand face
+(it has no italic, so emphasis in headlines is the gold colour). Everything
+else is Libre Franklin — a revival of Morris Fuller
 Benton's Franklin Gothic, the American workhorse grotesque of signage,
 newspapers and site hoardings. One family at a few weights (400 body,
 500–600 headings/labels, 700 wordmark) reads like a real firm's printed
@@ -103,9 +108,10 @@ material rather than the display-grotesque + monospace pairing that most
 generated sites default to. Labels and buttons are small caps-style
 uppercase with open tracking (0.12–0.16em). Emphasis inside headlines
 (`<em>` in `.display`/`.section-title`) is Franklin italic at regular weight
-in the pale annotation gold. Swap the family in one place: the `--font-*`
+in the pale annotation gold. Swap a family in one place: the `--font-*`
 tokens at the top of `src/style.css` plus the Google Fonts link in
-`index.html`.
+`index.html` (the loader in `index.html` names Cinzel too). Card and list
+titles (`h3`, `h4`) use Franklin, which reads better small.
 
 Four levels of warm black, hairline rules instead of boxes, a film-grain
 overlay at 3.5% opacity (flat black reads cheap on large screens).

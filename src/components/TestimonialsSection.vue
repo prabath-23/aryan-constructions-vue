@@ -37,8 +37,9 @@ onUnmounted(() => io?.disconnect())
       <div class="index-rule" v-reveal>
         <span class="num" v-scramble="150">A-501</span>
         <span class="line"></span>
-        <span class="label" v-scramble="300">Client Feedback</span>
+        <span class="label" v-scramble="300">Client Testimonials</span>
       </div>
+      <h2 class="section-title title" v-split>What Our <em>Clients Say.</em></h2>
 
       <!-- Pause only while the reader is over (or tabbed into) the quote
            itself: the section spans the full width, so pausing on section
@@ -95,6 +96,7 @@ onUnmounted(() => io?.disconnect())
 
 <style scoped>
 .all { margin-top: 2.5rem; }
+.title { margin-bottom: clamp(3rem, 6vw, 4.5rem); }
 .testimonials {
   padding: var(--section) 0;
   border-top: 1px solid var(--rule);
@@ -125,9 +127,9 @@ onUnmounted(() => io?.disconnect())
 .quote p {
   font-family: var(--font-head);
   font-weight: 400;
-  font-size: clamp(1.4rem, 3.4vw, 2.7rem);
-  line-height: 1.25;
-  letter-spacing: -0.02em;
+  font-size: clamp(1.3rem, 2.7vw, 2.15rem);
+  line-height: 1.35;
+  letter-spacing: 0.01em;
   color: var(--bone);
   margin: 0 0 2rem;
 }

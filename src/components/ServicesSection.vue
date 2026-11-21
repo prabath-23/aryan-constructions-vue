@@ -1,53 +1,64 @@
 <script setup>
+import { ref } from 'vue'
+import LineIcon from './LineIcon.vue'
 import { services } from '../data/content'
-
 import { photo } from '../data/photos'
+
+// Cards show a one-line summary; the button opens the full description.
+const openId = ref(null)
+const toggle = (id) => (openId.value = openId.value === id ? null : id)
 </script>
 
 <template>
   <section class="services" id="services">
     <div class="container">
-      <div class="head">
-        <div class="index-rule" v-reveal>
-          <span class="num" v-scramble="150">A-101</span>
-          <span class="line"></span>
-          <span class="label" v-scramble="300">What We Do</span>
-        </div>
-        <h2 class="section-title" v-split>Construction and <em>interiors.</em></h2>
+      <div class="index-rule" v-reveal>
+        <span class="num" v-scramble="150">A-101</span>
+        <span class="line"></span>
+        <span class="label" v-scramble="300">What We Do</span>
       </div>
+      <h2 class="section-title head" v-split>Building Spaces. <em>Delivering Excellence.</em></h2>
 
-      <div class="tracks">
-        <article v-for="(service, i) in services" :key="service.id" class="track" v-reveal>
-          <span class="ordinal num-display" aria-hidden="true">{{ String(i + 1).padStart(2, '0') }}</span>
-
-          <div class="media frame-media" v-reveal.clip v-tilt>
-            <div class="rv" v-parallax="0.12">
+      <div class="cards">
+        <article
+          v-for="(s, i) in services"
+          :key="s.id"
+          :class="['card', { open: openId === s.id }]"
+          v-reveal
+        >
+          <div class="media frame-media">
+            <div class="rv">
               <img
-                :src="photo(service.image).src"
-                :srcset="photo(service.image).srcset"
-                sizes="(min-width: 900px) 50vw, 100vw"
-                :alt="photo(service.image).alt"
+                :src="photo(s.image).src"
+                :srcset="photo(s.image).srcset"
+                sizes="(min-width: 900px) 18vw, 40vw"
+                :alt="photo(s.image).alt"
                 loading="lazy"
                 decoding="async"
-                width="1200"
-                height="900"
+                width="640"
+                height="480"
               >
             </div>
           </div>
 
           <div class="body">
-            <h3>{{ service.title }}</h3>
-            <p class="body-copy">{{ service.description }}</p>
-
-            <ul class="caps" v-reveal.stagger>
-              <li v-for="cap in service.capabilities" :key="cap">
-                <span class="glyph" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
-                <span>{{ cap }}</span>
-              </li>
-            </ul>
-
-            <a href="#contact" class="link"><span>Enquire about {{ service.title.toLowerCase() }}</span><span class="arrow">→</span></a>
+            <span class="idx num-display">{{ String(i + 1).padStart(2, '0') }}</span>
+            <h3>{{ s.title }}</h3>
+            <p class="summary">{{ s.summary }}</p>
+            <div class="more" :id="`svc-${s.id}`" :inert="openId !== s.id">
+              <p>{{ s.description }}</p>
+            </div>
           </div>
+
+          <button
+            class="toggle"
+            :aria-expanded="openId === s.id"
+            :aria-controls="`svc-${s.id}`"
+            :aria-label="`${openId === s.id ? 'Hide' : 'Read more about'} ${s.title}`"
+            @click="toggle(s.id)"
+          >
+            <LineIcon name="plus" />
+          </button>
         </article>
       </div>
     </div>
@@ -60,59 +71,73 @@ import { photo } from '../data/photos'
   background: var(--ink-1);
   border-top: 1px solid var(--rule);
 }
-.head { margin-bottom: clamp(3rem, 6vw, 5rem); }
+.head { max-width: none; margin-bottom: clamp(2.5rem, 5vw, 4rem); }
 
-.tracks {
+.cards {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: clamp(1.5rem, 3vw, 3rem);
+  gap: 1rem;
 }
 
-.track {
+.card {
   position: relative;
-  border-top: 1px solid var(--rule);
-  padding-top: 2rem;
-  transition: border-color 0.5s var(--ease);
-}
-.track:hover { border-top-color: rgba(206, 164, 55, 0.5); }
-
-.ordinal {
-  position: absolute;
-  top: 1.5rem;
-  right: 0;
-  font-size: clamp(3rem, 7vw, 6rem);
-  line-height: 1;
-  color: var(--bone);
-  opacity: 0.05;
-  pointer-events: none;
-}
-
-.media {
-  aspect-ratio: 16 / 10;
-  background: var(--ink-2);
+  display: grid;
+  grid-template-columns: minmax(8rem, 0.75fr) 1.25fr;
   border: 1px solid var(--rule);
-  margin-bottom: 2rem;
+  background: var(--ink);
+  transition: border-color 0.4s var(--ease);
 }
-.track:hover .media img { scale: 1.06; }
+.card:hover, .card.open { border-color: rgba(206, 164, 55, 0.5); }
 
-.body h3 {
-  font-size: clamp(1.6rem, 2.8vw, 2.35rem);
-  margin-bottom: 1rem;
+.media { min-height: 11rem; background: var(--ink-2); }
+/* No parallax here, so the image can fill the frame exactly */
+.media > .rv { inset: 0; }
+.media > .rv img { transform: none; }
+.card:hover .media img { scale: 1.06; }
+
+.body { padding: 1.4rem 3.75rem 1.4rem 1.5rem; }
+.idx { font-size: 0.6875rem; color: var(--gold); letter-spacing: 0.1em; }
+.body h3 { font-size: clamp(1rem, 1.4vw, 1.15rem); line-height: 1.25; margin: 0.4rem 0 0.6rem; }
+.summary { margin: 0; font-size: 0.8125rem; line-height: 1.6; color: var(--bone-45); }
+
+.more {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.5s var(--ease);
 }
-
-.caps { margin: 1.75rem 0; border-top: 1px solid var(--rule-soft); }
-.caps li {
-  display: flex;
-  align-items: center;
-  gap: 0.85rem;
-  padding: 0.8rem 0;
-  border-bottom: 1px solid var(--rule-soft);
-  font-size: 0.875rem;
+.more > p {
+  overflow: hidden;
+  margin: 0;
+  font-size: 0.8125rem;
+  line-height: 1.6;
   color: var(--bone-70);
 }
-.caps .glyph { width: 10px; height: 10px; gap: 2px; opacity: 0.8; }
+.open .more { grid-template-rows: 1fr; }
+.open .more > p { padding-top: 0.75rem; }
 
-@media (max-width: 900px) {
-  .tracks { grid-template-columns: 1fr; gap: 3.5rem; }
+.toggle {
+  position: absolute;
+  right: 1rem;
+  bottom: 1rem;
+  display: grid;
+  place-items: center;
+  width: 2.1rem;
+  height: 2.1rem;
+  padding: 0;
+  border: 1px solid rgba(206, 164, 55, 0.55);
+  background: transparent;
+  color: var(--gold);
+  transition: background 0.3s var(--ease), color 0.3s var(--ease);
+}
+.toggle:hover { background: var(--gold); color: var(--ink); }
+.toggle .line-icon { width: 1rem; height: 1rem; transition: rotate 0.4s var(--ease); }
+.open .toggle .line-icon { rotate: 45deg; }
+
+@media (max-width: 1000px) {
+  .cards { grid-template-columns: 1fr; }
+}
+@media (max-width: 520px) {
+  .card { grid-template-columns: 1fr; }
+  .media { aspect-ratio: 16 / 9; min-height: 0; }
 }
 </style>

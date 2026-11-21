@@ -1,7 +1,8 @@
 <script setup>
 import { onMounted, onUnmounted, ref } from 'vue'
 import HeroBuilding from './HeroBuilding.vue'
-import { heroStrip } from '../data/content'
+import LineIcon from './LineIcon.vue'
+import { heroStats, heroStrip } from '../data/content'
 import { registerMotion } from '../motion'
 import { reducedMotion, finePointer } from '../motion/env'
 
@@ -61,24 +62,28 @@ onUnmounted(() => {
       <div class="index-rule">
         <span class="num" v-scramble.load="150">A-000</span>
         <span class="line"></span>
-        <span class="label" v-scramble.load="300">Residential &amp; Commercial Builders</span>
+        <span class="label" v-scramble.load="300">Turnkey Construction · Design &amp; Build</span>
       </div>
 
       <h1 class="display headline">
-        <span class="mask"><span class="in">Building homes</span></span>
-        <span class="mask"><span class="in">and <em v-scramble.load="820">interiors</em></span></span>
-        <span class="mask"><span class="in">the right way.</span></span>
+        <span class="mask"><span class="in">Building Trust.</span></span>
+        <span class="mask"><span class="in">Creating <em v-scramble.load="820">Landmarks.</em></span></span>
       </h1>
 
       <p class="lede fade-1">
-        We convert your dreams to reality. A Chennai builder based in Vandalur, doing new
-        houses and full interiors with clear communication from start to handover.
+        Your trusted construction partner in Chennai, delivering turnkey construction,
+        residential, commercial and industrial projects with quality, precision and
+        commitment across Tamil Nadu.
       </p>
 
       <div class="actions fade-2">
         <a v-magnetic href="#contact" class="btn btn-gold"><span v-scramble.hover>Get a Quote</span><span class="arrow">→</span></a>
-        <a v-magnetic href="#portfolio" class="btn btn-ghost"><span v-scramble.hover>View Our Work</span><span class="arrow">→</span></a>
+        <a v-magnetic href="#portfolio" class="btn btn-ghost"><span v-scramble.hover>View Our Projects</span><span class="arrow">→</span></a>
       </div>
+
+      <ul class="stats fade-3">
+        <li v-for="s in heroStats" :key="s.text"><LineIcon :name="s.icon" /><span>{{ s.text }}</span></li>
+      </ul>
     </div>
 
     <!-- bottom data strip -->
@@ -90,7 +95,7 @@ onUnmounted(() => {
             <dd>{{ item.value }}</dd>
           </div>
         </dl>
-        <a href="#trust" class="cue" aria-label="Scroll to explore">
+        <a href="#about" class="cue" aria-label="Scroll to explore">
           <span class="cue-text">Scroll</span>
           <span class="cue-track"><span class="cue-dot"></span></span>
         </a>
@@ -156,7 +161,8 @@ onUnmounted(() => {
 /* Add to the container gutter (not replace it) to clear the vertical rail */
 @media (min-width: 900px) { .hero-body { padding-left: calc(var(--gutter) + 3.5rem); } }
 
-.headline { margin: 0 0 1.5rem; max-width: 15ch; font-size: clamp(2.8rem, min(6.6vw, 11.5vh), 7rem); }
+.headline { margin: 0 0 1.5rem; font-size: clamp(1.9rem, min(4.2vw, 8vh), 4.6rem); }
+@media (min-width: 560px) { .headline .in { white-space: nowrap; } }
 .mask { display: block; overflow: hidden; padding-bottom: 0.08em; margin-bottom: -0.08em; }
 .mask .in {
   display: block;
@@ -189,6 +195,28 @@ onUnmounted(() => {
 @keyframes growLine { to { transform: scaleX(1); } }
 
 .actions { display: flex; gap: 0.85rem; margin-top: 1.75rem; flex-wrap: wrap; }
+
+.stats {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: clamp(2rem, 5vh, 3.5rem);
+  max-width: 60rem;
+}
+.stats li {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.35rem clamp(1rem, 2.2vw, 2rem);
+  border-left: 1px solid var(--rule);
+  font-family: var(--font-ui);
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--bone-70);
+}
+.stats li:first-child { border-left: 0; padding-left: 0; }
+.stats .line-icon { color: var(--gold); width: 1.35rem; height: 1.35rem; }
 /* Clear the fixed CAD status bar on desktop */
 @media (min-width: 1081px) { .strip { margin-bottom: 30px; } }
 
@@ -243,6 +271,8 @@ onUnmounted(() => {
     background: linear-gradient(to top, var(--ink) 0%, rgba(8, 8, 7, 0.55) 45%, rgba(8, 8, 7, 0.2) 100%);
   }
   .actions { flex-direction: column; align-items: stretch; }
+  .stats { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem 0.75rem; }
+  .stats li { border-left: 0; padding: 0; letter-spacing: 0.1em; }
   .strip dl { flex-wrap: wrap; gap: 1.25rem 2rem; }
   .cue { display: none; }
 }

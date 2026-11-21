@@ -5,7 +5,7 @@ import { useReviewMode } from '../composables/useReviewMode'
 const { isOn, toggle } = useReviewMode()
 const year = new Date().getFullYear()
 
-const letters = [...'Aryan Constructions']
+const letters = [...'Aryan']
 
 const socials = [
   { label: 'Instagram', href: siteInfo.instagramHref },
@@ -92,8 +92,8 @@ const socials = [
   gap: 1rem;
   font-family: var(--font-head);
   font-weight: 500;
-  font-size: clamp(1.75rem, 3.6vw, 2.75rem);
-  letter-spacing: -0.025em;
+  font-size: clamp(1.6rem, 3.2vw, 2.5rem);
+  letter-spacing: 0.01em;
   line-height: 1.1;
   border-bottom: 1px solid var(--rule);
   padding-bottom: 0.4rem;
@@ -116,9 +116,9 @@ const socials = [
   font-weight: 700;
   /* Capped so the full name always fits the container — a wordmark clipped
      mid-letter reads as a bug, not a flourish. */
-  font-size: clamp(1.75rem, 8.6vw, 8rem);
+  font-size: clamp(3rem, 16vw, 14rem);
   line-height: 0.9;
-  letter-spacing: -0.045em;
+  letter-spacing: 0.22em;
   white-space: nowrap;
   user-select: none;
   margin-bottom: -0.1em;

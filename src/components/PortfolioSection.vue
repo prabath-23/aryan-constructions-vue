@@ -1,6 +1,6 @@
 <script setup>
 import { computed, ref } from 'vue'
-import { projects } from '../data/content'
+import { portfolioIntro, projects } from '../data/content'
 import { useLightbox } from '../composables/useLightbox'
 import { refreshMotion } from '../motion'
 
@@ -37,9 +37,13 @@ const onLayoutChange = () => refreshMotion()
           <div class="index-rule" v-reveal>
             <span class="num" v-scramble="150">A-201</span>
             <span class="line"></span>
-            <span class="label" v-scramble="300">Selected Work</span>
+            <span class="label" v-scramble="300">Our Portfolio</span>
           </div>
-          <h2 class="section-title" v-split>Recent <em>sites.</em></h2>
+          <h2 class="section-title" v-split>Experience Built Through <em>60+ Projects.</em></h2>
+          <p class="body-copy intro" v-reveal>{{ portfolioIntro.paragraph }}</p>
+          <ul class="facts" v-reveal>
+            <li v-for="f in portfolioIntro.facts" :key="f">{{ f }}</li>
+          </ul>
         </div>
 
         <div class="filters" v-reveal role="tablist" aria-label="Filter projects">
@@ -103,6 +107,20 @@ const onLayoutChange = () => refreshMotion()
 </template>
 
 <style scoped>
+.intro { max-width: 52ch; margin: 1.5rem 0 0; }
+.facts { display: flex; flex-wrap: wrap; gap: 0.5rem 0; margin-top: 1.5rem; }
+.facts li {
+  font-family: var(--font-ui);
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--gold);
+  padding: 0 1.1rem;
+  border-left: 1px solid var(--rule);
+}
+.facts li:first-child { padding-left: 0; border-left: 0; }
+
 .portfolio { padding: var(--section) 0; }
 
 .head {
@@ -244,7 +262,7 @@ const onLayoutChange = () => refreshMotion()
 .idx { font-size: 0.75rem; color: var(--gold); padding-top: 0.2rem; }
 .text { display: flex; flex-direction: column; gap: 0.15rem; }
 .text strong {
-  font-family: var(--font-head);
+  font-family: var(--font-ui);
   font-weight: 600;
   font-size: 1.15rem;
   letter-spacing: -0.01em;

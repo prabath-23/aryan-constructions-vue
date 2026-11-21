@@ -45,7 +45,7 @@
      display grotesque + monospace-labels combination (Bricolage / Space
      Grotesk / Plex Mono) that reads as AI-generated. The three tokens are
      kept separate so a role can be changed later without hunting. */
-  --font-head:  "Libre Franklin", "Franklin Gothic Medium", "Helvetica Neue", Arial, sans-serif;
+  --font-head:  "Cinzel", "Trajan Pro", Georgia, serif;
   --font-ui:    "Libre Franklin", "Franklin Gothic Medium", "Helvetica Neue", Arial, sans-serif;
   --font-body:  "Libre Franklin", "Franklin Gothic Book", "Helvetica Neue", Arial, sans-serif;
 
@@ -102,9 +102,12 @@ h1, h2, h3, h4 {
   font-weight: 600;
   margin: 0;
   color: var(--bone);
-  letter-spacing: -0.015em;
-  line-height: 1.04;
+  letter-spacing: 0.01em;
+  line-height: 1.1;
 }
+/* Cinzel (the brand face) for headlines; card and list titles stay in
+   Franklin, which reads better at small sizes. */
+h3, h4 { font-family: var(--font-ui); letter-spacing: -0.005em; }
 
 ::selection { background: var(--mark); color: var(--ink); }
 
@@ -349,25 +352,24 @@ section { position: relative; }
 
 .display {
   font-size: var(--fs-display);
-  line-height: 0.94;
-  letter-spacing: -0.03em;
+  line-height: 1.05;
+  letter-spacing: 0.01em;
   font-weight: 600;
 }
-/* Emphasis: the same face in a lighter italic, in gold — understated, the
-   way a print designer would do it, rather than a font-switch gimmick. */
+/* Emphasis: Cinzel has no italic, so emphasis is the gold, at regular weight. */
 .display em,
 .section-title em {
-  font-style: italic;
-  font-weight: 400;
+  font-style: normal;
+  font-weight: 500;
   color: var(--mark);
 }
 
 .section-title {
-  font-size: var(--fs-h2);
-  line-height: 1.05;
-  letter-spacing: -0.02em;
+  font-size: clamp(1.75rem, 3.8vw, 3.1rem);
+  line-height: 1.12;
+  letter-spacing: 0.01em;
   font-weight: 600;
-  max-width: 18ch;
+  max-width: 20ch;
 }
 
 .lede {

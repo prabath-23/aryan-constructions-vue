@@ -1,8 +1,10 @@
 // Centralized site content. Structured as plain data so it's a straight swap
-// for a CMS or API response later — components just consume these shapes.
+// for a CMS or API response later: components just consume these shapes.
+// Copy comes from the client's own content document (Nov 2026).
 
 export const siteInfo = {
   name: 'Aryan Constructions & Interiors',
+  founded: '2019',
   phone: '+91 93444 15551',
   phoneHref: 'tel:+919344415551',
   whatsappHref: 'https://wa.me/919344415551',
@@ -16,6 +18,14 @@ export const siteInfo = {
   mapEmbed: 'https://www.google.com/maps?q=12.8784466,80.080191&z=16&output=embed',
 }
 
+// Key facts under the hero buttons. Icons are names in LineIcon.vue.
+export const heroStats = [
+  { icon: 'calendar', text: 'Est. 2019' },
+  { icon: 'layers', text: '60+ Projects' },
+  { icon: 'helmet', text: '12+ Years Experience' },
+  { icon: 'pin', text: 'Serving Tamil Nadu' },
+]
+
 // Metadata strip along the bottom of the hero.
 export const heroStrip = [
   { label: 'We do', value: 'Construction · Interiors' },
@@ -23,30 +33,107 @@ export const heroStrip = [
   { label: 'Call', value: '+91 93444 15551' },
 ]
 
-// Rating and review count are from the Google listing: update when they change.
-export const trustStats = [
-  { value: '5', suffix: '+', label: 'Years Building', note: '[PLACEHOLDER: confirm founding year]' },
-  { value: '5.0', suffix: '', label: 'Google Rating', note: '' },
-  { value: '13', suffix: '', label: 'Google Reviews', note: '' },
-  { value: '8', suffix: '', label: 'Sites Shown Here', note: '' },
-]
+// "Who we are", straight after the hero.
+export const intro = {
+  paragraphs: [
+    'Established in 2019, Aryan Constructions & Interiors is a Chennai-based construction, architecture and interior design company headquartered in Vandalur, Chennai, Tamil Nadu.',
+    'We specialise in thoughtfully designed residential and commercial spaces, through a combination of quality-driven construction, architectural creativity and technical expertise.',
+    "From architectural planning and house construction to interior design, renovation and turnkey solutions, we tailor every project to our clients' requirements, lifestyle and budget.",
+    'With our roots in Chennai and projects across Tamil Nadu, we are committed to functional, refined and lasting spaces through transparent communication, professional execution and attention to detail.',
+  ],
+  tagline: 'From Chennai to every corner of Tamil Nadu, we build spaces that inspire.',
+}
 
+export const story = {
+  paragraphs: [
+    'Established in 2019, Aryan Constructions & Interiors is led by Er. Manikandan M., Founder and Managing Director and a CMDA-registered construction engineer.',
+    'Based in Vandalur, Chennai, we bring together architectural creativity, engineering knowledge and construction expertise to deliver thoughtfully planned residential and commercial spaces.',
+    'Under his leadership, Aryan is driven by professional standards, quality workmanship, client-focused planning and responsible project execution.',
+  ],
+  facts: [
+    { icon: 'calendar', value: 'Est.', label: '2019' },
+    { icon: 'layers', value: '60+', label: 'Projects' },
+    { icon: 'pin', value: 'Chennai', label: 'Tamil Nadu' },
+  ],
+  vision: 'To become a trusted name in the construction industry by creating high-quality, sustainable and thoughtfully designed spaces that stand the test of time.',
+  mission: 'To deliver quality construction and design solutions at the right cost by combining modern architectural concepts, practical engineering and efficient project execution while maintaining transparency and customer satisfaction.',
+}
+
+export const founder = {
+  name: 'Er. Manikandan M.',
+  role: 'Founder & Managing Director',
+  credentials: ['B.E. Civil Engineering', 'CMDA-Registered Construction Engineer', '12+ Years Experience'],
+  bio: [
+    'A Civil Engineering graduate from B.S. Abdur Rahman University, Chennai and a CMDA-registered engineer, he brings 12+ years of professional experience in the construction and engineering industry.',
+    'He leads the company with a focus on quality-driven execution, functional design, technical standards and transparent client relationships, guiding Aryan in creating thoughtfully designed spaces across Tamil Nadu.',
+  ],
+}
+
+export const team = {
+  paragraphs: [
+    'At Aryan Constructions & Interiors, we believe successful projects are built through teamwork, technical expertise and effective coordination.',
+    'Our multidisciplinary team brings together construction professionals, site engineers, architects and administrative staff, working together to turn ideas into completed spaces.',
+  ],
+  structure: [
+    { icon: 'worker', title: 'Professional Construction Team', text: 'Skilled construction professionals focused on quality workmanship and systematic project execution.' },
+    { icon: 'clipboard', title: 'Site Engineering Team', text: 'Site engineers who oversee construction progress, technical coordination, supervision and quality.' },
+    { icon: 'compass', title: 'In-house Architecture Team', text: 'Architects who handle planning, creative design, space optimisation, drawings and design development.' },
+    { icon: 'users', title: 'Office Administration', text: 'Supports daily operations, client coordination and project documentation.' },
+    { icon: 'calculator', title: 'Accounts & Finance', text: 'Manages financial coordination, project accounts and administrative records.' },
+  ],
+}
+
+// `summary` is shown on the card; `description` (the full text from the
+// client's document) opens beneath it.
 export const services = [
   {
+    id: 'turnkey',
+    title: 'Turnkey Construction',
+    image: 'selaiyur-1',
+    summary: 'End-to-end construction, from planning and material procurement to execution and final handover.',
+    description: 'We manage every stage, from architectural planning and material procurement to construction, finishing and final handover, with quality workmanship, transparent cost planning and seamless project coordination.',
+  },
+  {
     id: 'construction',
-    title: 'Construction',
+    title: 'Residential, Commercial & Industrial Construction',
     image: 'service-construction',
-    description: 'Independent houses and villas from plan to handover, plus commercial buildings. Design changes along the way are fine.',
-    capabilities: ['Independent houses', 'Villas', 'Renovations & upgrades', 'Commercial buildings'],
+    summary: 'Quality construction for homes, villas, offices, factories, schools and institutional buildings.',
+    description: 'Individual houses, luxury villas, apartments, offices, retail showrooms, shopping complexes, factories, warehouses, industrial sheds, schools, preschools and other public and private facilities, built for structural strength, quality materials, efficient execution and long-term durability.',
+  },
+  {
+    id: 'architecture',
+    title: 'Architectural Design & Planning',
+    image: 'porur-1',
+    summary: 'Thoughtful architectural designs, functional space planning, 2D drawings and 3D elevations.',
+    description: 'Our in-house architecture team designs residential, commercial, industrial and institutional projects: space planning, architectural drawings, 3D elevation designs and customised building layouts that combine modern design with practical engineering.',
   },
   {
     id: 'interiors',
-    title: 'Interiors',
+    title: 'Interior Design & Execution',
     image: 'service-interiors',
-    description: 'The same team can finish the inside too, so you are not chasing a second contractor.',
-    capabilities: ['Modular kitchens', 'Wardrobes & storage', 'False ceilings & feature walls', 'Pooja rooms & carved doors'],
+    summary: 'Customised interior solutions for residential, commercial and institutional spaces.',
+    description: 'Functional, refined interiors for homes, offices, commercial establishments and educational spaces: space planning, modular kitchens, wardrobes, custom furniture, false ceilings, lighting design and complete interior execution.',
+  },
+  {
+    id: 'renovation',
+    title: 'Renovation & Remodelling',
+    image: 'selvi-2',
+    summary: 'Modern upgrades, structural improvements and interior renovations for existing buildings.',
+    description: 'We transform existing residential, commercial and institutional spaces through renovation, remodelling, structural modifications where feasible, interior upgrades and modern design improvements that add function, looks and property value.',
+  },
+  {
+    id: 'consultation',
+    title: 'Consultation & Project Management',
+    image: 'mapedu-5',
+    summary: 'Construction consultation, cost estimation, site supervision and coordinated project execution.',
+    description: 'Professional construction consultation, project planning, cost estimation, site supervision, quality monitoring and execution coordination, from initial planning to final handover.',
   },
 ]
+
+export const portfolioIntro = {
+  paragraph: "With over 60 completed projects since 2019, our work covers architectural design, residential construction, interiors, renovation and turnkey execution. Every project brings its own requirements, so we start by understanding each client's vision. Here are a few recent sites.",
+  facts: ['60+ Projects', 'Since 2019', 'Across Tamil Nadu'],
+}
 
 // Site names and client names are as Mani gave them. `cover` overrides the
 // card image when the first gallery photo doesn't suit the card's shape.
@@ -126,12 +213,13 @@ export const processSteps = [
   { index: '05', title: 'Handover', description: 'We walk through the finished job with you, fix anything left, and hand over the paperwork.' },
 ]
 
-// Each of these is something clients actually mention in the Google reviews.
-export const whyPoints = [
-  { title: 'Interiors under one roof', description: 'Construction and interiors from the same team.' },
-  { title: 'Open to changes', description: 'Plans change during a build. We work with that.' },
-  { title: 'On time', description: 'We give you a realistic schedule and keep to it.' },
-  { title: 'Clear communication', description: 'You know where things stand at every stage.' },
+// The client's core values, shown as "Why choose Aryan?"
+export const coreValues = [
+  { icon: 'award', title: 'Quality', description: 'Delivering durable, high-quality construction at the right cost.' },
+  { icon: 'shield', title: 'Trust', description: 'Building lasting relationships through transparency and honest communication.' },
+  { icon: 'bulb', title: 'Innovation', description: 'Combining modern architecture with practical engineering solutions.' },
+  { icon: 'smile', title: 'Customer Satisfaction', description: 'Understanding client needs and exceeding expectations.' },
+  { icon: 'clock', title: 'Commitment', description: 'Maintaining quality workmanship and timely project delivery.' },
 ]
 
 // Short excerpts from real Google reviews (full text on the listing, linked
@@ -142,26 +230,29 @@ export const testimonials = [
   { quote: 'We are very happy with the final outcome.', author: 'Jaya Suriya, Google review' },
 ]
 
-// Drawing-sheet index for the status bar — codes match each section's
+// Drawing-sheet index for the status bar: codes match each section's
 // title block (AIA numbering: A-1xx plans, A-2xx elevations, A-3xx sections…).
 export const sheets = [
   { id: 'hero', code: 'A-000', title: 'Cover Sheet' },
   { id: 'about', code: 'A-001', title: 'Who We Are' },
-  { id: 'services', code: 'A-101', title: 'What We Build' },
-  { id: 'portfolio', code: 'A-201', title: 'Selected Work' },
-  { id: 'process', code: 'A-301', title: 'Build Sequence' },
-  { id: 'why', code: 'A-401', title: 'Details' },
-  { id: 'testimonials', code: 'A-501', title: 'Client Feedback' },
+  { id: 'story', code: 'A-002', title: 'Our Story' },
+  { id: 'team', code: 'A-003', title: 'Our Team' },
+  { id: 'portfolio', code: 'A-201', title: 'Our Projects' },
+  { id: 'services', code: 'A-101', title: 'Our Services' },
+  { id: 'process', code: 'A-301', title: 'How We Work' },
+  { id: 'why', code: 'A-401', title: 'Why Aryan' },
+  { id: 'testimonials', code: 'A-501', title: 'Client Reviews' },
   { id: 'contact', code: 'G-001', title: 'Start Your Project' },
 ]
 
-export const marqueeItems = ['Independent Houses', 'Villas', 'Modular Kitchens', 'Wardrobes', 'False Ceilings', 'Staircases', 'Pooja Rooms', 'Carved Doors']
+export const marqueeItems = ['Turnkey Construction', 'Independent Houses', 'Villas', 'Apartments', 'Commercial Buildings', 'Industrial Sheds', 'Interiors', 'Modular Kitchens', 'Renovation', '3D Elevations']
 
 export const navLinks = [
   { href: '#about', label: 'About' },
-  { href: '#services', label: 'Services' },
+  { href: '#team', label: 'Team' },
   { href: '#portfolio', label: 'Portfolio' },
-  { href: '#process', label: 'Process' },
+  { href: '#services', label: 'Services' },
   { href: '#why', label: 'Why Us' },
+  { href: '#testimonials', label: 'Reviews' },
   { href: '#contact', label: 'Contact' },
 ]

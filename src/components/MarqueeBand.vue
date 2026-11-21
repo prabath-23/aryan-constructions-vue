@@ -83,9 +83,9 @@ onUnmounted(() => {
 .word {
   font-family: var(--font-head);
   font-weight: 700;
-  font-size: clamp(3rem, 9vw, 8.5rem);
-  line-height: 1;
-  letter-spacing: -0.035em;
+  font-size: clamp(2.6rem, 7.5vw, 7rem);
+  line-height: 1.1;
+  letter-spacing: 0.02em;
   color: var(--bone);
   white-space: nowrap;
   padding: 0 clamp(1rem, 2.5vw, 2.25rem);

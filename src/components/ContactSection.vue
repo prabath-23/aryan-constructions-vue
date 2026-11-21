@@ -58,7 +58,7 @@ const details = [
 
       <div class="grid">
         <div class="left">
-          <h2 class="section-title" v-split>Tell us what <em>you're building.</em></h2>
+          <h2 class="section-title" v-split>Start Your Project <em>With Us.</em></h2>
           <p class="lede" v-reveal>
             Send us the outline and we'll arrange a site visit and an itemised quote.
           </p>

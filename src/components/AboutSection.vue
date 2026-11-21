@@ -1,5 +1,6 @@
 <script setup>
 import { photo } from '../data/photos'
+import { intro } from '../data/content'
 
 const img = photo('about')
 </script>
@@ -7,34 +8,25 @@ const img = photo('about')
 <template>
   <section class="about" id="about">
     <div class="container">
-      <div class="index-rule" v-reveal>
-        <span class="num" v-scramble="150">A-001</span>
-        <span class="line"></span>
-        <span class="label" v-scramble="300">Who We Are</span>
-      </div>
-
       <div class="grid">
         <div class="copy">
-          <h2 class="section-title" v-split>A small team. <em>Careful work.</em></h2>
+          <div class="index-rule" v-reveal>
+            <span class="num" v-scramble="150">A-001</span>
+            <span class="line"></span>
+            <span class="label" v-scramble="300">Who We Are</span>
+          </div>
+          <h2 class="section-title" v-split>Built on Trust. <em>Driven by Excellence.</em></h2>
 
           <div class="prose" v-reveal.stagger>
-            <p class="body-copy">
-              Aryan Constructions &amp; Interiors is run by Er. Manikandan M, a registered CMDA construction
-              engineer, from our office on GST Road, Vandalur. We build independent houses and villas
-              across Chennai, and do the interiors too.
-            </p>
-            <p class="body-copy">
-              You deal with the same people from the first site visit to handover, and if your plans
-              change along the way, we work with that.
-            </p>
-            <a href="#portfolio" class="link"><span>View the portfolio</span><span class="arrow">→</span></a>
+            <p v-for="(para, i) in intro.paragraphs" :key="i" class="body-copy">{{ para }}</p>
+            <a href="#portfolio" class="link"><span>View our projects</span><span class="arrow">→</span></a>
           </div>
         </div>
 
         <figure class="media">
           <div class="frame frame-media" v-reveal.clip v-tilt>
             <div class="rv" v-parallax="0.14">
-              <img :src="img.src" :srcset="img.srcset" sizes="(min-width: 1000px) 55vw, 100vw" :alt="img.alt" loading="lazy" decoding="async" width="1200" height="900">
+              <img :src="img.src" :srcset="img.srcset" sizes="(min-width: 1000px) 50vw, 100vw" :alt="img.alt" loading="lazy" decoding="async" width="1200" height="900">
             </div>
           </div>
           <figcaption v-reveal>
@@ -44,10 +36,7 @@ const img = photo('about')
         </figure>
       </div>
 
-      <blockquote class="pull">
-        <p v-split>“The interior design is also done by them with good quality.”</p>
-        <cite v-reveal>Krishna Balan, Google review</cite>
-      </blockquote>
+      <p class="tagline" v-split>{{ intro.tagline }}</p>
     </div>
   </section>
 </template>
@@ -57,17 +46,14 @@ const img = photo('about')
 
 .grid {
   display: grid;
-  grid-template-columns: 1fr 1.15fr;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
   gap: clamp(2.5rem, 7vw, 7rem);
-  align-items: start;
 }
 
 .prose { display: grid; gap: 1.5rem; justify-items: start; margin-top: 2rem; }
 
 .media { margin: 0; position: relative; }
-/* Lift the image out of the text baseline — asymmetry keeps it from reading
-   like a two-column template. */
-@media (min-width: 1000px) { .media { margin-top: -5rem; } }
 
 .frame {
   aspect-ratio: 4 / 3;
@@ -86,29 +72,15 @@ figcaption {
   color: var(--bone-28);
 }
 
-.pull {
-  margin: clamp(3.5rem, 9vw, 7rem) 0 0;
+.tagline {
+  margin: clamp(3.5rem, 8vw, 6rem) 0 0;
   padding-top: clamp(2rem, 4vw, 3rem);
   border-top: 1px solid var(--rule);
-  max-width: 60rem;
-}
-.pull p {
   font-family: var(--font-head);
-  font-size: clamp(1.4rem, 3.2vw, 2.5rem);
-  font-weight: 400;
-  font-style: italic;
-  line-height: 1.22;
-  letter-spacing: -0.02em;
-  margin: 0 0 1.5rem;
+  font-size: clamp(1.3rem, 2.8vw, 2.2rem);
+  line-height: 1.3;
   color: var(--bone-70);
-  max-width: 24ch;
-}
-.pull cite {
-  font-style: normal;
-  font-size: 0.6875rem;
-  letter-spacing: 0.26em;
-  text-transform: uppercase;
-  color: var(--gold);
+  max-width: 34ch;
 }
 
 @media (max-width: 999px) {

@@ -2,8 +2,9 @@
 import { onMounted } from 'vue'
 import TheHeader from './components/TheHeader.vue'
 import HeroSection from './components/HeroSection.vue'
-import TrustBar from './components/TrustBar.vue'
 import AboutSection from './components/AboutSection.vue'
+import StorySection from './components/StorySection.vue'
+import TeamSection from './components/TeamSection.vue'
 import ServicesSection from './components/ServicesSection.vue'
 import MarqueeBand from './components/MarqueeBand.vue'
 import PortfolioSection from './components/PortfolioSection.vue'
@@ -35,11 +36,12 @@ onMounted(() => {
     <TheHeader />
     <main>
       <HeroSection />
-      <TrustBar />
       <AboutSection />
+      <StorySection />
+      <TeamSection />
+      <PortfolioSection />
       <ServicesSection />
       <MarqueeBand :items="marqueeItems" />
-      <PortfolioSection />
       <ProcessSection />
       <WhySection />
       <TestimonialsSection />

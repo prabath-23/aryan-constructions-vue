@@ -157,8 +157,10 @@ onUnmounted(() => {
 .wordmark { display: flex; flex-direction: column; line-height: 1.15; }
 .name {
   font-family: var(--font-head);
-  font-size: 1.05rem;
-  letter-spacing: 0.01em;
+  font-weight: 700;
+  font-size: 1.15rem;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
 }
 .sub {
   font-size: 0.5625rem;
