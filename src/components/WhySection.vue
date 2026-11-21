@@ -3,7 +3,7 @@ import LineIcon from './LineIcon.vue'
 import { coreValues } from '../data/content'
 import { photo } from '../data/photos'
 
-const img = photo('mudichur-1')
+const img = photo('why')
 </script>
 
 <template>

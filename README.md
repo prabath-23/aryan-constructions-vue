@@ -221,6 +221,12 @@ project in `src/data/content.js`.
 - Porur is 3D renders, not a finished building. The card, filter and gallery
   all say so. Keep it that way.
 - Photos with housewarming boards are cropped to remove family names.
+- Daylight photos get one shared grade (`grade()` in the script): bright
+  whites roll off instead of glaring on the dark page, mid-tones get depth,
+  colour is lifted and warmed a little, with a soft vignette. Night shots and
+  3D renders skip it. Feature slots (About, Why, Services, card covers) use
+  the most striking shot from each project, cropped tight to the
+  architecture: low angles against the sky, staircases, the marble wall.
 - Reviews are short excerpts of real Google reviews. One review on the listing
   is about a different company ("Arani Construction", Vancouver): do not use it.
 

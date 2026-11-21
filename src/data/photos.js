@@ -11,12 +11,14 @@ for (const [path, url] of Object.entries(files)) {
 Object.values(index).forEach((list) => list.sort((a, b) => a.w - b.w))
 
 const alts = {
-  about: 'Double-height living room and kitchen seen from the staircase',
+  about: 'Glass staircase with a gold-finish rail above a double-height living room and kitchen',
+  why: 'Corner house with wood cladding and vertical fins against a blue sky',
   founder: 'Er. Manikandan M., Founder and Managing Director of Aryan Constructions & Interiors',
   'service-construction': 'Upper floors of a white corner house with a curved balcony',
-  'service-interiors': 'Modular kitchen framed by a wooden partition',
+  'service-interiors': 'Double-height marble feature wall with a ring chandelier',
+  'service-renovation': 'Floating staircase with step lights beside a carved wooden unit',
 
-  'nedungundram-cover': 'White modular kitchen with an island counter',
+  'nedungundram-cover': 'House front with geometric cladding and a jali screen against the sky',
   'nedungundram-1': 'House front with geometric cladding and a jali screen',
   'nedungundram-2': 'Double-height living area seen from a glass staircase',
   'nedungundram-3': 'White modular kitchen with an island counter',
@@ -26,7 +28,7 @@ const alts = {
   'nedungundram-7': 'Carved wooden pooja room doors',
   'nedungundram-8': 'Carved wooden main door with a sunburst pattern',
 
-  'mapedu-1': 'White corner house with curved balconies',
+  'mapedu-1': 'White corner house with curved balconies, seen from below',
   'mapedu-2': 'Staircase with timber rail and jali windows',
   'mapedu-3': 'Open living room and kitchen with a staircase behind',
   'mapedu-4': 'Living room with polished grey floor',
@@ -41,8 +43,8 @@ const alts = {
   'selvi-6': 'Bathroom with black and white marble walls',
   'selvi-7': 'Balcony with a stone-clad wall',
 
-  'mudichur-1': 'Two-floor house with a glass balcony and wood-finish gate',
-  'mudichur-2': 'The same house seen from the side',
+  'mudichur-1': 'Two-floor house with a glass balcony and a jali screen, seen from the corner',
+  'mudichur-2': 'The same house from the front, with its wood-finish gate',
 
   'thalambur-1': 'Living room with a chandelier and a kitchen behind a wooden frame',
   'thalambur-2': 'Glass-front modular kitchen with a white counter',
